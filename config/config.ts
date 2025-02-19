@@ -9,7 +9,8 @@ export default defineConfig({
   theme: {
     "@primary-theme-color": "#000",
     "@primary-font-color": "#fff",
-    "@primary-screen-width": "1240rem",
+    "@primary-screen-width": "77vw",
+    "@primary-screen-height": "77.8vh",
     "@primary-active-color": "#18F195",
     "@primary-header-height": "100rem",
   },

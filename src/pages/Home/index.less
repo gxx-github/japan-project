@@ -1,21 +1,119 @@
-.commonSection {
-  width: @primary-screen-width;
-  margin: 0 auto;
-  h2,
-  h4,
-  p {
-    margin: 0;
-    padding: 0;
-  }
-  ul,
-  li {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-  h1{
-    font-size: 34rem;
-  }
+.mainContent {
+  width: 100vw;
+  height: 100vh;
+  background: url(../../assets/img/common/Bg.png) no-repeat;
+  background-position: 50% center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 
+.commonSection {
+  width: @primary-screen-width;
+  height: @primary-screen-height;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.tabs {
+  display: flex;
+  height: 45rem;
+  margin-bottom: 3rem;
+
+  >div {
+    width: 160rem;
+    height: 45rem;
+    font-size: 20rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #BB2ADA;
+    background: #fff;
+    margin-right: 8rem;
+  }
+
+  .active {
+    color: #fff;
+    background: linear-gradient(to right, #BB5DF8, #4FEAFF);
+  }
+}
+
+.content {
+  flex: 1;
+  overflow-y: scroll;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 0 50rem 50rem 50rem;
+  color: #000;
+}
+
+.itemDom {
+  display: flex;
+  padding: 50rem;
+  border-bottom: 1rem solid #000;
+
+  .leftDom {
+    margin-right: 50rem;
+
+    img {
+      width: 204rem;
+      height: 86rem;
+      margin-bottom: 12rem;
+    }
+
+    .start {
+      font-size: 16rem;
+      margin-bottom: 6rem;
+    }
+
+    .end {
+      font-size: 16rem;
+
+    }
+  }
+
+  .rightDom {
+    flex: 1;
+
+    .titDom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20rem;
+
+      .tit {
+        font-size: 32rem;
+      }
+
+      >span {
+        display: flex;
+        align-items: center;
+      }
+
+      .show {
+        font-size: 14rem;
+        color: #F71111;
+        margin-right: 8rem;
+      }
+
+      .button {
+        width: 135rem;
+        height: 43rem;
+        text-align: center;
+        line-height: 43rem;
+        font-size: 15rem;
+        background: #564083;
+        color: #fff;
+      }
+
+    }
+
+    .des {
+      font-size: 16rem;
+    }
+  }
+}
