@@ -1,0 +1,52 @@
+@import "./assets/fonts/index.less";
+
+html,
+body {
+  background: @primary-theme-color;
+  color: @primary-font-color;
+  padding: 0;
+  margin: 0;
+  font-size: calc(100vw / 1920);
+}
+
+
+// 骨架屏
+.skeletonInlineBox {
+  overflow: hidden;
+  display: inline-block;
+  background: linear-gradient(90deg, #000 15%, #1b1d1f 37%, #2f3236 63%);
+  background-size: 400% 100%;
+  border-radius: 4px;
+  animation-name: inlineAnimation;
+  animation-duration: 1.4s;
+  animation-timing-function: ease;
+  animation-iteration-count: infinite;
+}
+
+@keyframes inlineAnimation {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}
+.skeletonBlockBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  .loading-img {
+    width: 24px;
+    height: 24px;
+    background: url(./assets/img/common/loading.png) no-repeat;
+    background-size: contain;
+    animation: blockLoadingAnimaiton 1s linear infinite;
+  }
+  @keyframes blockLoadingAnimaiton {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
+

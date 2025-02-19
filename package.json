@@ -1,0 +1,33 @@
+{
+  "private": true,
+  "author": "stittch",
+  "scripts": {
+    "build": "cross-env UMI_ENV=probuild umi build",
+    "build:test": "cross-env UMI_ENV=testbuild umi build",
+    "dev": "umi dev"
+  },
+  "dependencies": {
+    "@openzeppelin/merkle-tree": "^1.0.5",
+    "@rainbow-me/rainbowkit": "^2.0.1",
+    "@react-google-maps/api": "^2.20.3",
+    "@tanstack/react-query": "^5.25.0",
+    "classnames": "^2.5.1",
+    "copy-to-clipboard": "^3.3.3",
+    "i18next": "^23.8.1",
+    "jquery": "^3.7.1",
+    "lodash": "^4.17.21",
+    "react-i18next": "^14.0.1",
+    "scrollreveal": "^4.0.9",
+    "swr": "^2.2.5",
+    "umi": "^4.1.1",
+    "viem": "^2.7.20",
+    "wagmi": "^2.5.7"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.33",
+    "@types/react-dom": "^18.0.11",
+    "@umijs/plugins": "^4.1.1",
+    "cross-env": "^7.0.3",
+    "typescript": "^5.0.3"
+  }
+}
