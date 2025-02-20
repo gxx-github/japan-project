@@ -6,30 +6,23 @@ import {
 } from "@rainbow-me/rainbowkit";
 import { WagmiProvider, createConfig, http } from "wagmi";
 import {
-  mainnet,
-  sepolia,
-  baseSepolia,
-  arbitrum,
-  bsc,
   polygon,
-  bscTestnet,
   polygonAmoy,
-  arbitrumSepolia
 } from "wagmi/chains";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 const queryClient = new QueryClient();
 
-export const APP_NAME = "Tusima-Website";
+export const APP_NAME = "Website";
 export const PROJECT_ID = "da06c4afa84d098dc0d1f3830700991d";
 
-const prodChain = [mainnet, arbitrum, bsc, polygon];
-const testChain = [sepolia, baseSepolia,bscTestnet,polygonAmoy,arbitrumSepolia];
+const prodChain = [ polygon];
+const testChain = [polygonAmoy];
 
 const config = getDefaultConfig({
   appName: APP_NAME,
   projectId: PROJECT_ID,
   chains: process.env.SHOW_TEST_NETWORK
-    ? [...prodChain, ...testChain]
+    ? [ ...testChain]
     : [...prodChain],
   ssr: true, // If your dApp uses server side rendering (SSR)
 });
@@ -37,14 +30,7 @@ const config = getDefaultConfig({
 interface Props {
   children: any;
 }
-export const config1 = createConfig({
-  chains: [mainnet, sepolia, baseSepolia],
-  transports: {
-    [mainnet.id]: http(),
-    [sepolia.id]: http(),
-    [baseSepolia.id]: http(),
-  },
-});
+
 
 export default function RainbowKit(props: Props) {
   const { children } = props;

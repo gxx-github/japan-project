@@ -29,11 +29,17 @@ const Claim = () => {
                     <div className={styles.showItem}>
                         <div className={styles.label}>エアドロップ
                         受け取りアドレス</div>
-                        <div className={styles.inner}></div>
+                        <div className={styles.inner}>
+                            {
+                                account
+                                ? `${account.substring(0, 7)}******${account.substring(account.length - 4)}`
+                                : '--'
+                            }
+                        </div>
                     </div>
                     <div className={styles.showItem}>
                         <div className={styles.label}>チェーン</div>
-                        <div className={styles.inner}></div>
+                        <div className={styles.inner1}>Polygon</div>
                     </div>
                     <div className={styles.claimButton} onClick={() => console.log(account)}>申し込み</div>
                 </div>
