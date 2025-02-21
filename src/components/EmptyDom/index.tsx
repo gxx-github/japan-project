@@ -1,5 +1,6 @@
 import styles from "./index.less";
 import { useEffect } from "react";
+import font from '../../assets/img/Home/font.png';
 
 type Props = {
     type: number;
@@ -23,14 +24,18 @@ export default function EmptyDom(props: Props) {
            }
            {
             type === 1 && <>
-            <div className={styles.text}>現在申し込み受付予定のプロジェクトはありません
-            αU marketからのお知らせをお待ちください</div>
-            <div className={styles.button1}>αU marketをみる</div></>
+            <div className={styles.text}>現在申し込み受付が可能なプロジェクトはありません
+           </div>
+            <div className={styles.button1}>
+                <img src={font} alt="" />
+                </div></>
            }
            {
             type === 2 && <>
-            <div className={styles.text1}>現在申し込み受付が可能なプロジェクトはありません</div>
-            <div className={styles.button1}>申し込み受付予定のプロジェクトを見る</div>
+            <div className={styles.text}>申し込みが終了したプロジェクトはありません</div>
+            <div className={styles.button1}>
+            <img src={font} alt="" />
+            </div>
             </>
            }
         </div>

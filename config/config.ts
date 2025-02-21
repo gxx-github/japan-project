@@ -7,7 +7,7 @@ export default defineConfig({
   antd: {},
   dva: {},
   theme: {
-    "@primary-theme-color": "#000",
+    "@primary-theme-color": "#fff",
     "@primary-font-color": "#fff",
     "@primary-screen-width": "77vw",
     "@primary-screen-height": "77.8vh",

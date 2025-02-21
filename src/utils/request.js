@@ -25,8 +25,7 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   (response) => {
     const res = response.data;
-
-    if (res.code !== 0) {
+    if (Number(res.code) !== 0) {
       // 接口错误
       return Promise.reject(res);
     } else {

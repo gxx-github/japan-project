@@ -10,6 +10,7 @@ import {
   polygonAmoy,
 } from "wagmi/chains";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import InfoProvider from "../InfoProvider";
 const queryClient = new QueryClient();
 
 export const APP_NAME = "Website";
@@ -34,7 +35,7 @@ interface Props {
 
 export default function RainbowKit(props: Props) {
   const { children } = props;
-  return (
+  return (<InfoProvider>
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
         <RainbowKitProvider
@@ -47,5 +48,7 @@ export default function RainbowKit(props: Props) {
         </RainbowKitProvider>
       </QueryClientProvider>
     </WagmiProvider>
+  </InfoProvider>
+
   );
 }

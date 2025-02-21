@@ -5,9 +5,7 @@ export default {
   },
   proxy: {
     "/api": {
-      // target: "http://101.251.211.205:8055/",
-      target: "http://43.155.152.249:8055/",
-      changeOrigin: true,
+      target: "http://47.243.86.140:40071",
       pathRewrite: { "^/api": "" },
       secure: false,
     },

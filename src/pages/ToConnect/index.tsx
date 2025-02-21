@@ -5,7 +5,7 @@ import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
 import { useEffect } from "react";
 import { history } from "umi";
-
+import textImg from '../../assets/img/Home/text.png'
 
 
 const ToConnect = () => {
@@ -41,7 +41,7 @@ const ToConnect = () => {
         >
             <div className={styles.connectDom}>
                 <div className={styles.text} >
-                    SHOW TEXT
+                   <img src={textImg} alt="" />
                 </div>
                 <div className={styles.jumpButton} onClick={judgeIsWallect}>
                     WALLET CONNECT<br />

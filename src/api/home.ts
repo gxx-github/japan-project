@@ -1,17 +1,43 @@
 import request from "@/utils/request";
 
-// 获取总金额
-export function fetchGetTotalAmount() {
+// 获取Nft列表
+export function fetchGetNftList(data: any) {
   return request({
-    url: `/registration/selectCountAmount`,
-    method: "GET",
+    url: `/privasea/nfts`,
+    method: "POST",
+    data
+  });
+}
+// 领取空投提交
+export function fetchToClaim(data: any) {
+  return request({
+    url: `/privasea/createAddr`,
+    method: "POST",
+    data
   });
 }
 
-// 获取总人数
-export function fetchGetTotalAddress() {
+//查询用户领取信息
+export function fetchUserClaimInfo(data: any) {
   return request({
-    url: `/registration/selectCount`,
-    method: "GET",
+    url: `/privasea/getAddr`,
+    method: "POST",
+    data
+  });
+}
+//管理员导出空投Excel
+export function fetchExport(data: any) {
+  return request({
+    url: `/privasea/export`,
+    method: "POST",
+    data
+  });
+}
+//创造Nft上传
+export function fetchCreatNft(data: any) {
+  return request({
+    url: `/privasea/createNft`,
+    method: "POST",
+    data
   });
 }
