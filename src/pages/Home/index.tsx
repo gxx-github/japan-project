@@ -1,12 +1,13 @@
 import styles from "./index.less";
 import classnames from "classnames";
 import { judgeIsMobile } from "@/utils";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import EmptyDom from "@/components/EmptyDom";
 import { history } from "umi";
 import { fetchGetNftList } from "@/api/home";
 import moment from 'moment';
-import {  TimerDom } from "@/components/Timer";
+import { TimerDom } from "@/components/Timer";
+import { InfoContext } from "@/components/InfoProvider";
 
 interface ListItem {
   info: string;
@@ -19,13 +20,15 @@ interface ListItem {
 
 const HomePage = () => {
   const TabList = ['Upcoming', 'Live', 'Ended']
+  const { setNftInfo }: any = useContext(InfoContext);
+
   const [curChooise, setcurChooise] = useState(0)
   const handleTab = (index: number) => {
     setcurChooise(index)
   }
   const [showListData, setshowListData] = useState([] as ListItem[])
   const mockList0 = [
-    
+
   ] as ListItem[]
   const mockList1 = [
     {
@@ -59,53 +62,55 @@ const HomePage = () => {
       end_time: 1740141908,
     },
   ]
-  const getNftListQuery = (state:number)=>{
+  const getNftListQuery = (state: number) => {
     const Params = {
-      "state":state, // 0 未开始 1 进行中 2 已结束
-      "page":1,
-      "limit":50
+      "state": state, // 0 未开始 1 进行中 2 已结束
+      "page": 1,
+      "limit": 50
     }
     fetchGetNftList(Params)
       .then((res) => {
         const res1 = {
           "code": "0000",
           "msg": "Success",
-          "total":10,
-          "data": 
+          "total": 10,
+          "data":
           {
             "nft": [
               {
+                "id": 0,
                 "info": "bababalalala简介",
                 "nft_name": "nft 名称",
                 "nft_address": "0x...",
                 "logo": "logo图片",
                 "start_timestamp": 1740138775, // 开始时间
-                "end_timestamp": 1740225175 // 结束时间
-              }, 
-            
+                "end_timestamp": 1740225175 // 结束时间,
+
+              },
+
             ],
-        
+
           }
         }
         const data = res1.data;
-        const {nft} = data
+        const { nft } = data
         setshowListData(nft)
       })
       .catch(() => {
-        setshowListData([ ])
+        setshowListData([])
 
       });
   }
-  const onZero = ()=>{
+  const onZero = () => {
 
   }
   useEffect(() => {
     getNftListQuery(curChooise)
     return () => {
-      
+
     }
   }, [curChooise])
-  
+
   return (
     <section
       className={classnames(
@@ -123,40 +128,40 @@ const HomePage = () => {
         </div>
         <div className={styles.content} >
           {
-           showListData.length !== 0 ?  showListData.map((item, index) => {
+            showListData.length !== 0 ? showListData.map((item, index) => {
               return <div className={styles.itemDom} key={index} >
                 <div className={styles.leftDom} >
                   <img src={item.logo} alt="" />
                   <div className={styles.start}>開始日時:
-                    <span>{item.start_timestamp &&  moment(item.start_timestamp*1000).format('YYYY-MM-DD HH:mm') }</span>
-                    <span>{item.start_timestamp &&  moment(1678990000000).format('YYYY-MM-DD HH:mm') }</span>
-                    </div>
+                    <span>{item.start_timestamp && moment(item.start_timestamp * 1000).format('YYYY-MM-DD HH:mm')}</span>
+                  </div>
                   <div className={styles.end} >終了日時:
-                    <span>{item.end_timestamp &&  moment(item.end_timestamp*1000).format('YYYY-MM-DD HH:mm') }</span></div>
+                    <span>{item.end_timestamp && moment(item.end_timestamp * 1000).format('YYYY-MM-DD HH:mm')}</span></div>
                 </div>
                 <div className={styles.rightDom} >
                   <div className={styles.titDom} >
                     <div className={styles.tit}>{item.nft_name}</div>
-                   <span>
-                    {
-                      curChooise === 0 &&   <div className={styles.show}>
-                      残り <TimerDom timer={item.start_timestamp} onZero={onZero} shouwDay={true} ></TimerDom> 日
-                    </div>
-                    }
-                 
-                    {
-                      curChooise === 0 ?   <div className={styles.button0} >申し込み終了</div> :   <div className={styles.button} onClick={()=>{
-                        history.push('/toConnect') 
-                      }}>申し込み終了</div>
-                    }
-                  
-                   </span>
+                    <span>
+                      {
+                        curChooise === 0 && <div className={styles.show}>
+                          残り <TimerDom timer={item.start_timestamp} onZero={onZero} shouwDay={true} ></TimerDom> 日
+                        </div>
+                      }
+                      {
+                        curChooise === 0 ? <div className={styles.button0} >申し込み終了</div> : curChooise === 1 ? <div className={styles.button} onClick={() => {
+                          history.push('/toConnect')
+                          setNftInfo(item)
+                        }}>申し込み中</div> : <div className={styles.button0} >申し込み終了</div>
+                      }
+
+
+                    </span>
                   </div>
                   <div className={styles.des} >{item.info}</div>
                 </div>
               </div>
             })
-            : <EmptyDom type={curChooise} ></EmptyDom>
+              : <EmptyDom type={curChooise} ></EmptyDom>
           }
         </div>
 

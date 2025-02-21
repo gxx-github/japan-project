@@ -3,17 +3,32 @@ import classnames from "classnames";
 import { judgeIsMobile } from "@/utils";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
-import { useEffect, useState } from "react";
-import { fetchUserClaimInfo } from "@/api/home";
+import { useContext, useEffect, useState, type ChangeEvent } from "react";
+import { fetchToClaim, fetchUserClaimInfo } from "@/api/home";
+import { InfoContext } from "@/components/InfoProvider";
+import { history } from "umi";
 
 
 
 const Claim = () => {
     const { address: account } = useAccount();
     const [claimAmount, setclaimAmount] = useState(0)
+    const { NftInfo }: any = useContext(InfoContext);
+    const [inputValue, setinputValue] = useState('')
+    const ethereumAddressRegex = /^0x[a-fA-F0-9]{40}$/;
+
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const inputValue = e.target.value;
+        // 验证输入的钱包地址
+        if (inputValue === '' || ethereumAddressRegex.test(inputValue)) {
+            setinputValue(inputValue)
+        } else {
+
+        }
+    };
     const quertUserNftInfo = () => {
         const Params = {
-            nft_id: 0,
+            nft_id: NftInfo.id,
             address: account
         }
         fetchUserClaimInfo(Params)
@@ -31,6 +46,40 @@ const Claim = () => {
                 setclaimAmount(0)
             });
     }
+    const handleClaim = ()=>{
+        const Params = {
+            "nft_id":NftInfo.id, // nft id
+            "address":account, // 连接地址，默认
+            "new_addr":inputValue, // 新接收地址
+            "amount":claimAmount,
+            "chain":"bsc",
+        }
+        fetchToClaim(Params)
+        .then((res) => {
+            const data = res.data;
+            setTimeout(() => {
+                history.push('/')
+            }, 3000);
+        })
+        .catch(() => {
+            setclaimAmount(5)
+        });
+    }
+
+    useEffect(() => {
+        quertUserNftInfo()
+        if (account) {
+            setinputValue(account)
+        }
+        if (!NftInfo || Object.keys(NftInfo).length === 0) {
+            history.push('/')
+        }
+
+        return () => {
+
+        }
+    }, [account])
+
 
 
     return (
@@ -41,27 +90,28 @@ const Claim = () => {
             )}
         >
             <div className={styles.commonSection}>
-                <div className={styles.innerTop}></div>
+                <div className={styles.innerTop}>
+                    <img src={NftInfo.logo} alt="" />
+                </div>
                 <div className={styles.content}>
-                    <div className={styles.showText}>エアドロップ対象</div>
-                    <div className={styles.showText1}><span>保有NFT数</span><br />
-                        5個</div>
+                    <div className={styles.showText}>{NftInfo.nft_name}</div>
+                    <div className={claimAmount ? styles.showText1 : styles.showText0}><span>保有NFT数</span><br />
+                        {claimAmount}個
+                    </div>
                     <div className={styles.showItem}>
                         <div className={styles.label}>エアドロップ
                             受け取りアドレス</div>
-                        <div className={styles.inner}>
-                            {
-                                account
-                                    ? `${account.substring(0, 7)}******${account.substring(account.length - 4)}`
-                                    : '--'
-                            }
-                        </div>
+                        <input className={styles.inner} value={inputValue} onChange={handleInputChange} />
+
                     </div>
                     <div className={styles.showItem}>
                         <div className={styles.label}>チェーン</div>
                         <div className={styles.inner1}>Polygon</div>
                     </div>
-                    <div className={styles.claimButton} onClick={() => console.log(account)}>申し込み</div>
+                    {
+                        claimAmount ? <div className={styles.claimButton} onClick={() =>handleClaim()}>申し込み</div> : <div className={styles.claimButtonDis} >申し込み資格がありません</div>
+                    }
+
                 </div>
             </div>
         </section>
