@@ -1,24 +1,27 @@
 import type React from "react"
 import { useState, type ChangeEvent, type FormEvent } from "react"
 import styles from './index.less'
+import { fetchCreatNft } from "@/api/home"
 
 interface FormData {
-  image: File | null
-  title: string
-  intro: string
-  startTime: string
-  endTime: string
-  token: string
+  logo: File | null
+  nft_name: string
+  info: string
+  start_timestamp: number
+  end_timestamp: number
+  access_token: string
+  nft_address:string
 }
 
 const UploadForm: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
-    image: null,
-    title: "",
-    intro: "",
-    startTime: "",
-    endTime: "",
-    token: "",
+    logo: null,
+    nft_name: "",
+    info: "",
+    start_timestamp: 0,
+    end_timestamp: 0,
+    access_token: "",
+    nft_address:''
   })
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -33,7 +36,7 @@ const UploadForm: React.FC = () => {
     if (e.target.files && e.target.files[0]) {
       setFormData((prevState) => ({
         ...prevState,
-        image: e.target.files![0],
+        logo: e.target.files![0],
       }))
     }
   }
@@ -42,48 +45,64 @@ const UploadForm: React.FC = () => {
     e.preventDefault()
     // Here you would typically send the formData to your server
     console.log(formData)
+    const formDataToSubmit = {
+      ...formData,
+      start_timestamp: new Date(formData.start_timestamp).getTime() / 1000, // Convert to Unix timestamp
+      end_timestamp: new Date(formData.end_timestamp).getTime() / 1000, // Convert to Unix timestamp
+    };
+    fetchCreatNft(formDataToSubmit)
+      .then((res) => {
+     
+      })
+      .catch(() => {
+
+      });
   }
 
   return (
     <form className={styles["upload-form"]} onSubmit={handleSubmit}>
       <h2>Upload Form</h2>
       <div className={styles["form-group"]}>
-        <label htmlFor="image">Image:</label>
-        <input type="file" id="image" name="image" accept="image/*" onChange={handleImageChange} />
+        <label htmlFor="logo">logo:</label>
+        <input type="file" id="logo" name="logo" accept="image/*" onChange={handleImageChange} />
       </div>
       <div className={styles["form-group"]}>
-        <label htmlFor="title">Title:</label>
-        <input type="text" id="title" name="title" value={formData.title} onChange={handleInputChange} required />
+        <label htmlFor="nft_name">nft_name:</label>
+        <input type="text" id="nft_name" name="nft_name" value={formData.nft_name} onChange={handleInputChange} required />
       </div>
       <div className={styles["form-group"]}>
-        <label htmlFor="intro">Introduction:</label>
-        <textarea id="intro" name="intro" value={formData.intro} onChange={handleInputChange} required />
+        <label htmlFor="nft_address">nft_address:</label>
+        <input type="text" id="nft_address" name="nft_address" value={formData.nft_address} onChange={handleInputChange} required />
       </div>
       <div className={styles["form-group"]}>
-        <label htmlFor="startTime">Start Time:</label>
+        <label htmlFor="info">infoduction:</label>
+        <textarea id="info" name="info" value={formData.info} onChange={handleInputChange} required />
+      </div>
+      <div className={styles["form-group"]}>
+        <label htmlFor="start_timestamp">Start Time:</label>
         <input
           type="datetime-local"
-          id="startTime"
-          name="startTime"
-          value={formData.startTime}
+          id="start_timestamp"
+          name="start_timestamp"
+          value={formData.start_timestamp}
           onChange={handleInputChange}
           required
         />
       </div>
       <div className={styles["form-group"]}>
-        <label htmlFor="endTime">End Time:</label>
+        <label htmlFor="end_timestamp">End Time:</label>
         <input
           type="datetime-local"
-          id="endTime"
-          name="endTime"
-          value={formData.endTime}
+          id="end_timestamp"
+          name="end_timestamp"
+          value={formData.end_timestamp}
           onChange={handleInputChange}
           required
         />
       </div>
       <div className={styles["form-group"]}>
-        <label htmlFor="token">Token:</label>
-        <input type="text" id="token" name="token" value={formData.token} onChange={handleInputChange} required />
+        <label htmlFor="access_token">access_token:</label>
+        <input type="text" id="access_token" name="access_token" value={formData.access_token} onChange={handleInputChange} required />
       </div>
       <button type="submit" className={styles["submit-button"]}>
         Submit
