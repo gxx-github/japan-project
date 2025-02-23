@@ -16,15 +16,19 @@ const Claim = () => {
     const { NftInfo }: any = useContext(InfoContext);
     const [inputValue, setinputValue] = useState('')
     const ethereumAddressRegex = /^0x[a-fA-F0-9]{40}$/;
+  const { setcurChooise }: any = useContext(InfoContext);
+
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
-        // 验证输入的钱包地址
-        if (inputValue === '' || ethereumAddressRegex.test(inputValue)) {
-            setinputValue(inputValue)
-        } else {
+        setinputValue(inputValue)
 
-        }
+        // // 验证输入的钱包地址
+        // if (inputValue === '' || ethereumAddressRegex.test(inputValue)) {
+        //     setinputValue(inputValue)
+        // } else {
+
+        // }
     };
     const quertUserNftInfo = () => {
         const Params = {
@@ -48,24 +52,28 @@ const Claim = () => {
             });
     }
     const handleClaim = ()=>{
-        const Params = {
-            "nft_id":NftInfo.id, // nft id
-            // "address":account, // 连接地址，默认
-            "address":'0x8E64c24749B181d1c547586aC7fCDc8e07db27c3', // 连接地址，默认
-            "new_addr":inputValue, // 新接收地址
-            "amount":1,
-            "chain":"bsc",
-        }
-        fetchToClaim(Params)
-        .then((res) => {
-            const data = res.data;
-            setTimeout(() => {
-                history.push('/')
-            }, 3000);
-        })
-        .catch(() => {
-            setclaimAmount(5)
-        });
+        setcurChooise(1)
+        setTimeout(() => {
+            history.push('/')
+        }, 3000);
+        // const Params = {
+        //     "nft_id":NftInfo.id, // nft id
+        //     "address":account, // 连接地址，默认
+        //     "new_addr":inputValue, // 新接收地址
+        //     "amount":1,
+        //     "chain":"polygon",
+        // }
+        // fetchToClaim(Params)
+        // .then((res) => {
+        //     const data = res.data;
+        //     setcurChooise(1)
+        //     setTimeout(() => {
+        //         history.push('/')
+        //     }, 3000);
+        // })
+        // .catch(() => {
+        //     setclaimAmount(0)
+        // });
     }
 
     useEffect(() => {

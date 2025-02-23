@@ -21,10 +21,10 @@ interface ListItem {
 
 const HomePage = () => {
   const TabList = ['Upcoming', 'Live', 'Ended']
-  const { setNftInfo }: any = useContext(InfoContext);
+  const { setNftInfo,curChooise, setcurChooise }: any = useContext(InfoContext);
     const { address: account } = useAccount();
 
-  const [curChooise, setcurChooise] = useState(0)
+  // const [curChooise, setcurChooise] = useState(0)
   const handleTab = (index: number) => {
     setcurChooise(index)
   }
@@ -48,6 +48,7 @@ const HomePage = () => {
       });
   }
   const onZero = () => {
+    getNftListQuery(curChooise)
 
   }
   useEffect(() => {
@@ -90,11 +91,18 @@ const HomePage = () => {
                     <span>
                       {
                         curChooise === 0 && <div className={styles.show}>
-                          残り <TimerDom timer={item.start_timestamp} onZero={onZero} shouwDay={true} ></TimerDom> 日
+                          距离开始还剩:
+                          <TimerDom timer={item.start_timestamp} onZero={onZero}  ></TimerDom> 
                         </div>
                       }
                       {
-                        curChooise === 0 ? <div className={styles.button0} >申し込み終了</div> : curChooise === 1 ? <div className={styles.button} onClick={() => {
+                        curChooise === 1 && <div className={styles.show}>
+                          距离结束还有:
+                          <TimerDom timer={item.end_timestamp} onZero={onZero}  ></TimerDom> 
+                        </div>
+                      }
+                      {
+                        curChooise === 0 ? <div className={styles.button0} >活动未开始</div> : curChooise === 1 ? <div className={styles.button} onClick={() => {
                           if(account){
                             history.push('/toClaim')
 
@@ -103,7 +111,7 @@ const HomePage = () => {
 
                           }
                           setNftInfo(item)
-                        }}>申し込み中</div> : <div className={styles.button0} >申し込み終了</div>
+                        }}>活动进行中</div> : <div className={styles.button0} >活动已结束</div>
                       }
 
 
