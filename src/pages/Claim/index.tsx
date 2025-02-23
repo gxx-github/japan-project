@@ -7,6 +7,7 @@ import { useContext, useEffect, useState, type ChangeEvent } from "react";
 import { fetchToClaim, fetchUserClaimInfo } from "@/api/home";
 import { InfoContext } from "@/components/InfoProvider";
 import { history } from "umi";
+import { message } from "antd";
 
 
 
@@ -16,7 +17,9 @@ const Claim = () => {
     const { NftInfo }: any = useContext(InfoContext);
     const [inputValue, setinputValue] = useState('')
     const ethereumAddressRegex = /^0x[a-fA-F0-9]{40}$/;
-  const { setcurChooise }: any = useContext(InfoContext);
+    const { setcurChooise }: any = useContext(InfoContext);
+    const [messageApi,contextHolder] = message.useMessage();
+    const [isClaimed, setisClaimed] = useState(false)
 
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -39,11 +42,17 @@ const Claim = () => {
         fetchUserClaimInfo(Params)
             .then((res) => {
                 const data = res.data;
-                const { total } = data;
+                const { total,amount } = data;
                 if (total) {
                     setclaimAmount(total)
+                  
                 } else {
                     setclaimAmount(0)
+                }
+                if(total === amount){
+                    setisClaimed(true)
+                }else{
+                    setisClaimed(false)
                 }
 
             })
@@ -51,39 +60,51 @@ const Claim = () => {
                 setclaimAmount(0)
             });
     }
-    const handleClaim = ()=>{
+    const handleClaim = () => {
         setcurChooise(1)
-        setTimeout(() => {
-            history.push('/')
-        }, 3000);
-        // const Params = {
-        //     "nft_id":NftInfo.id, // nft id
-        //     "address":account, // 连接地址，默认
-        //     "new_addr":inputValue, // 新接收地址
-        //     "amount":1,
-        //     "chain":"polygon",
-        // }
-        // fetchToClaim(Params)
-        // .then((res) => {
-        //     const data = res.data;
-        //     setcurChooise(1)
-        //     setTimeout(() => {
-        //         history.push('/')
-        //     }, 3000);
-        // })
-        // .catch(() => {
-        //     setclaimAmount(0)
-        // });
+        const Params = {
+            "nft_id": NftInfo.id, // nft id
+            "address": account, // 连接地址，默认
+            "new_addr": inputValue, // 新接收地址
+            "amount": claimAmount,
+            "chain": "polygon",
+        }
+        fetchToClaim(Params)
+            .then((res) => {
+                messageApi.open({
+                    type: 'success',
+                    content: '领取成功',
+                });
+                const data = res.data;
+                setcurChooise(1)
+                setTimeout(() => {
+                    history.push('/')
+                }, 3000);
+            })
+            .catch(() => {
+                // setclaimAmount(0)
+                messageApi.open({
+                    type: 'error',
+                    content: 'Request failed with status code 500',
+                });
+
+            });
     }
 
     useEffect(() => {
         quertUserNftInfo()
+        if (!account) {
+            history.push('/toConnect')
+        }
         if (account) {
             setinputValue(account)
         }
-        if (!NftInfo || Object.keys(NftInfo).length === 0) {
-            history.push('/')
+        if (!NftInfo || Object.keys(NftInfo).length === 0 && !account) {
+            history.push('/toShow')
         }
+
+        console.log(account, 'account');
+
 
         return () => {
 
@@ -95,10 +116,10 @@ const Claim = () => {
     return (
         <section
             className={classnames(
-                styles.mainContent,
-                !judgeIsMobile() ? "" : styles.mobile
+                !judgeIsMobile() ? styles.mainContent : styles.mobile
             )}
         >
+             {contextHolder}
             <div className={styles.commonSection}>
                 <div className={styles.innerTop}>
                     <img src={NftInfo.spend} alt="" />
@@ -119,7 +140,7 @@ const Claim = () => {
                         <div className={styles.inner1}>Polygon</div>
                     </div>
                     {
-                        claimAmount ? <div className={styles.claimButton} onClick={() =>handleClaim()}>申し込み</div> : <div className={styles.claimButtonDis} >申し込み資格がありません</div>
+                        claimAmount!==0 && !isClaimed ? <div className={styles.claimButton} onClick={() => handleClaim()}>申し込み</div> : <div className={styles.claimButtonDis} >申し込み資格がありません</div>
                     }
 
                 </div>

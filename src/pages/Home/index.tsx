@@ -41,6 +41,7 @@ const HomePage = () => {
         const data = res.data;
         const { nft } = data
         setshowListData(nft)
+        // setshowListData([])
       })
       .catch(() => {
         setshowListData([])

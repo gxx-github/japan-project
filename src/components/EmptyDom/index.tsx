@@ -1,6 +1,8 @@
 import styles from "./index.less";
 import { useEffect } from "react";
 import font from '../../assets/img/Home/font.png';
+import classnames from "classnames";
+import { judgeIsMobile } from "@/utils";
 
 type Props = {
     type: number;
@@ -13,7 +15,9 @@ export default function EmptyDom(props: Props) {
 
     return (
         <div
-            className={styles.emptyDom}
+            className={classnames(
+                !judgeIsMobile() ?  styles.emptyDom : styles.mobileemptyDom
+              )}
         >
            {
             type === 0 && <>
