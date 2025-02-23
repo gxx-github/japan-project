@@ -5,6 +5,8 @@ const routes = [
   { path: "/toClaim", component: "@/pages/Claim", name: "Claim" },
   { path: "/toShow", component: "@/pages/Show", name: "Show" },
   { path: "/uploadForm", component: "@/pages/Upload", name: "UploadForm" },
+  { path: "/login", component: "@/pages/Login", name: "login" },
+  { path: "/list", component: "@/pages/List", name: "List" },
  
 ];
 

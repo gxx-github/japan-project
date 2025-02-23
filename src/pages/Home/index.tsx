@@ -8,12 +8,13 @@ import { fetchGetNftList } from "@/api/home";
 import moment from 'moment';
 import { TimerDom } from "@/components/Timer";
 import { InfoContext } from "@/components/InfoProvider";
+import { useAccount } from "wagmi";
 
 interface ListItem {
   info: string;
   nft_name: string;
   nft_address: string;
-  logo: string;
+  spend: string;
   start_timestamp: number;
   end_timestamp: number;
 }
@@ -21,47 +22,14 @@ interface ListItem {
 const HomePage = () => {
   const TabList = ['Upcoming', 'Live', 'Ended']
   const { setNftInfo }: any = useContext(InfoContext);
+    const { address: account } = useAccount();
 
   const [curChooise, setcurChooise] = useState(0)
   const handleTab = (index: number) => {
     setcurChooise(index)
   }
   const [showListData, setshowListData] = useState([] as ListItem[])
-  const mockList0 = [
 
-  ] as ListItem[]
-  const mockList1 = [
-    {
-      img: 'https://www.trias.one/static/swiper2@2x.3767a38b.png',
-      des: 'PRIVASEAは、ブロックチェーンの匿名性をAIで解除するためのインテリジェント・トゥ・アーン・トークンです。',
-      title: 'PRIVASEA',
-      start_time: 1739969108,
-      end_time: 1740141908,
-    },
-    {
-      img: 'https://www.trias.one/static/swiper2@2x.3767a38b.png',
-      des: 'Arkham (ARKM)は、ブロックチェーンの匿名性をAIで解除するためのインテリジェント・トゥ・アーン・トークンです。',
-      title: 'Trias One',
-      start_time: 1739969108,
-      end_time: 1740141908,
-    },
-  ]
-  const mockList2 = [
-    {
-      img: 'https://www.trias.one/static/swiper2@2x.3767a38b.png',
-      des: 'PRIVASEAは、ブロックチェーンの匿名性をAIで解除するためのインテリジェント・トゥ・アーン・トークンです。',
-      title: 'PRIVASEA',
-      start_time: 1739969108,
-      end_time: 1740141908,
-    },
-    {
-      img: 'https://www.trias.one/static/swiper2@2x.3767a38b.png',
-      des: 'Arkham (ARKM)は、ブロックチェーンの匿名性をAIで解除するためのインテリジェント・トゥ・アーン・トークンです。',
-      title: 'Trias One',
-      start_time: 1739969108,
-      end_time: 1740141908,
-    },
-  ]
   const getNftListQuery = (state: number) => {
     const Params = {
       "state": state, // 0 未开始 1 进行中 2 已结束
@@ -70,29 +38,7 @@ const HomePage = () => {
     }
     fetchGetNftList(Params)
       .then((res) => {
-        const res1 = {
-          "code": "0000",
-          "msg": "Success",
-          "total": 10,
-          "data":
-          {
-            "nft": [
-              {
-                "id": 0,
-                "info": "bababalalala简介",
-                "nft_name": "nft 名称",
-                "nft_address": "0x...",
-                "logo": "logo图片",
-                "start_timestamp": 1740138775, // 开始时间
-                "end_timestamp": 1740225175 // 结束时间,
-
-              },
-
-            ],
-
-          }
-        }
-        const data = res1.data;
+        const data = res.data;
         const { nft } = data
         setshowListData(nft)
       })
@@ -131,7 +77,7 @@ const HomePage = () => {
             showListData.length !== 0 ? showListData.map((item, index) => {
               return <div className={styles.itemDom} key={index} >
                 <div className={styles.leftDom} >
-                  <img src={item.logo} alt="" />
+                  <img src={item.spend} alt="" />
                   <div className={styles.start}>開始日時:
                     <span>{item.start_timestamp && moment(item.start_timestamp * 1000).format('YYYY-MM-DD HH:mm')}</span>
                   </div>
@@ -149,7 +95,13 @@ const HomePage = () => {
                       }
                       {
                         curChooise === 0 ? <div className={styles.button0} >申し込み終了</div> : curChooise === 1 ? <div className={styles.button} onClick={() => {
-                          history.push('/toConnect')
+                          if(account){
+                            history.push('/toClaim')
+
+                          }else{
+                            history.push('/toConnect')
+
+                          }
                           setNftInfo(item)
                         }}>申し込み中</div> : <div className={styles.button0} >申し込み終了</div>
                       }

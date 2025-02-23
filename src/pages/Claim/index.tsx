@@ -29,14 +29,15 @@ const Claim = () => {
     const quertUserNftInfo = () => {
         const Params = {
             nft_id: NftInfo.id,
-            address: account
+            // address: account
+            address: '0x8E64c24749B181d1c547586aC7fCDc8e07db27c3'
         }
         fetchUserClaimInfo(Params)
             .then((res) => {
                 const data = res.data;
-                const { amount } = data;
-                if (amount) {
-                    setclaimAmount(amount)
+                const { total } = data;
+                if (total) {
+                    setclaimAmount(total)
                 } else {
                     setclaimAmount(0)
                 }
@@ -49,9 +50,10 @@ const Claim = () => {
     const handleClaim = ()=>{
         const Params = {
             "nft_id":NftInfo.id, // nft id
-            "address":account, // 连接地址，默认
+            // "address":account, // 连接地址，默认
+            "address":'0x8E64c24749B181d1c547586aC7fCDc8e07db27c3', // 连接地址，默认
             "new_addr":inputValue, // 新接收地址
-            "amount":claimAmount,
+            "amount":1,
             "chain":"bsc",
         }
         fetchToClaim(Params)
@@ -91,7 +93,7 @@ const Claim = () => {
         >
             <div className={styles.commonSection}>
                 <div className={styles.innerTop}>
-                    <img src={NftInfo.logo} alt="" />
+                    <img src={NftInfo.spend} alt="" />
                 </div>
                 <div className={styles.content}>
                     <div className={styles.showText}>{NftInfo.nft_name}</div>

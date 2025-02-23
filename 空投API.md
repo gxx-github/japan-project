@@ -134,7 +134,7 @@
   "msg": "Success",
   "data": 
   {
-    "total":10, // 拥有总个数
+    "total":10, // 拥有总个数a
     "amount":5, // 已经记录个数
     "addrs": [
       {
