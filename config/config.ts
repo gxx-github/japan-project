@@ -10,9 +10,11 @@ export default defineConfig({
     "@primary-theme-color": "#fff",
     "@primary-font-color": "#fff",
     "@primary-screen-width": "77vw",
+    "@primary-screen-width-mobile": "100%",
     "@primary-screen-height": "77.8vh",
+    "@primary-screen-height-mobile": "100vh",
     "@primary-active-color": "#18F195",
-    "@primary-header-height": "100rem",
+    "@primary-header-height": "100px",
   },
   //分享链接显示title
   title: "",

@@ -61,8 +61,7 @@ const HomePage = () => {
   return (
     <section
       className={classnames(
-        styles.mainContent,
-        !judgeIsMobile() ? "" : styles.mobile
+        !judgeIsMobile() ?  styles.mainContent : styles.mobile
       )}
     >
       <div className={styles.commonSection}>
