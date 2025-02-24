@@ -62,8 +62,8 @@ const EventList: React.FC = () => {
 
     const handleDeleteEvent = (id: number,nft_address:string) => {
         const Params = {
-            id: id,
-            nft_address: nft_address
+            nft_id: id,
+            address: nft_address
         }
         fetchDelet(Params)
             .then((res) => {

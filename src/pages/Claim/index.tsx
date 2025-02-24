@@ -148,7 +148,7 @@ const Claim = () => {
                             {
                                 !isClaimed ? <div className={styles.claimButton} onClick={() => handleClaim()}>申し込み</div> : <div className={styles.claimButtonDis} onClick={()=>{
                                     history.push('/')
-                                }}>已经领取</div>
+                                }}>已申请</div>
                             }
 
                         </> : <div className={styles.claimButtonDis} >没有NFT可以领取</div>
