@@ -15,7 +15,7 @@ RUN npm install
 RUN npm run build
 # FROM octahub.8lab.cn:5000/base/nginx:v1.22.1
 FROM tusima-website:base
-COPY --from=build /app/dist /home/tusima/Japan/web
+COPY --from=build /app/dist /home/tusima/Japan/web/dist
 
 EXPOSE 80
 CMD ["nginx","-g","daemon off;"]
