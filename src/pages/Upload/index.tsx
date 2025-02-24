@@ -86,7 +86,7 @@ const UploadForm: React.FC = () => {
           <label htmlFor="nft_name">logo:</label>
           {/* <input type="text" id="logo" name="logo" value={formData.logo} onChange={handleInputChange} required /> */}
           <input type="file" accept="image/*"  name="logo"  onChange={handleFileChange} ref={fileInputRef} required />
-          <img src={formData.logo} alt="" className={styles.imgShow} />
+         {  formData.logo &&  <img src={formData.logo} alt="" className={styles.imgShow} /> }
         </div>
         <div className={styles["form-group"]}>
           <label htmlFor="nft_name">nft_name:</label>

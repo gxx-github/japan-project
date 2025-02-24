@@ -149,9 +149,29 @@
     top: 0;
     display: flex;
     align-items: center;
-    
+    .fileInput{
+        display: none;
+
+    }
+    .imagePreview{
+        display: flex;
+        img{
+            width: 204px;
+    height: 86px;
+        }
+        .editButton{
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-align: center;
+            margin: 10px 0;
+        }
+    }
     .form-con{
-        background: #fcc;
         max-width: 700px;
         width: 700px;
         margin: 0 auto;

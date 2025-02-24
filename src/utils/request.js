@@ -2,6 +2,9 @@ import axios from "axios";
 
 let timeout = 60000 * 3;
 let baseURL = BASE_API_URL;
+console.log('====================================');
+console.log(BASE_API_URL,'BASE_API_URL');
+console.log('====================================');
 
 const service = axios.create({
   baseURL,

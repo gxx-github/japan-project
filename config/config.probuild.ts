@@ -1,13 +1,6 @@
 export default {
   define: {
-    BASE_API_URL: "/api",
+    BASE_API_URL: "http://47.243.86.140:40071",
     "process.env.SHOW_TEST_NETWORK": true,
-  },
-  proxy: {
-    "/api": {
-      target: "http://47.243.86.140:40071",
-      pathRewrite: { "^/api": "" },
-      secure: false,
-    },
   },
 };

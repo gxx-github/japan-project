@@ -63,6 +63,9 @@ const HomePage = () => {
         !judgeIsMobile() ?  styles.mainContent : styles.mobile
       )}
     >
+      <div className={styles.float} onClick={()=>{
+        history.push('/login')
+      }}>Jump</div>
       <div className={styles.commonSection}>
         <div className={styles.tabs} >
           {

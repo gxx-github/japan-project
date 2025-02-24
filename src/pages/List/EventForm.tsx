@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useState, useEffect, type ChangeEvent, type FormEvent } from "react"
+import { useState, useEffect, type ChangeEvent, type FormEvent, useRef } from "react"
 import type { Event } from "./Event"
 import styles from "./index.less"
 import { fetchCreatNft, fetchExport } from "@/api/home"
@@ -23,6 +23,10 @@ interface EventFormProps {
 }
 
 const EventForm: React.FC<EventFormProps> = ({ event, onSubmit, onCancel }) => {
+    const [previewUrl, setPreviewUrl] = useState<string | null>(event?.spend || null)
+    const fileInputRef = useRef<HTMLInputElement>(null)
+
+
     const [formData, setFormData] = useState<FormData>({
         spend: '',
         nft_name: "",
@@ -53,6 +57,7 @@ const EventForm: React.FC<EventFormProps> = ({ event, onSubmit, onCancel }) => {
             start_timestamp: formData.start_timestamp, // Convert to Unix timestamp
             end_timestamp: formData.end_timestamp, // Convert to Unix timestamp
         };
+        
         fetchCreatNft(formDataToSubmit)
             .then((res) => {
                 messageApi.open({
@@ -73,6 +78,29 @@ const EventForm: React.FC<EventFormProps> = ({ event, onSubmit, onCancel }) => {
     const formatDateForInput = (timestamp: number) => {
         return moment(timestamp * 1000).format('YYYY-MM-DDTHH:mm')
     }
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0]
+        if (file) {
+          const reader = new FileReader()
+          reader.onloadend = () => {
+            const base64String = reader.result as string
+            setPreviewUrl(base64String)
+            setFormData(
+                {
+                    ...formData,
+                    spend:base64String
+                }
+            )
+          }
+          reader.readAsDataURL(file)
+        }
+      }
+
+      const handleButtonClick = (e:any) => {
+        e.preventDefault()
+        fileInputRef.current?.click()
+      }
+
     useEffect(() => {
         if (event) {
             setFormData({
@@ -95,8 +123,30 @@ const EventForm: React.FC<EventFormProps> = ({ event, onSubmit, onCancel }) => {
                 <h2>Edit Form</h2>
                 <div className={styles["form-group"]}>
                     <label htmlFor="nft_name">logo:</label>
-                    <input type="text" id="logo" name="logo" value={formData.spend} onChange={handleInputChange} required />
+                    {/* <input type="text" id="logo" name="logo" value={formData.spend} onChange={handleInputChange} required /> */}
+                    <input type="file" accept="image/*" onChange={handleFileChange} ref={fileInputRef} className={styles.fileInput} />
+                    {previewUrl ? (
+                        <div className={styles.imagePreview}>
+                            <img src={previewUrl || "/placeholder.svg"} alt="Preview" />
+                            <div className={styles.imageActions}>
+                                <button onClick={handleButtonClick} className={styles.editButton}>
+                                    更改图片
+                                </button>
+                                {/* <button onClick={handleRemoveImage} className={styles.removeButton}>
+                                    删除图片
+                                </button> */}
+                            </div>
+                        </div>
+                    ) : (
+                        <button onClick={handleButtonClick} className={styles.uploadButton}>
+                            选择图片
+                        </button>
+                    )}
                 </div>
+
+
+
+
                 <div className={styles["form-group"]}>
                     <label htmlFor="nft_name">nft_name:</label>
                     <input type="text" id="nft_name" name="nft_name" value={formData.nft_name} onChange={handleInputChange} required />
