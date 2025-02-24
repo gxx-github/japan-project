@@ -6,6 +6,7 @@ import styles from "./index.less"
 import { history } from "umi";
 import { fetchLogin } from "@/api/home";
 import { message } from "antd";
+import CryptoJS from 'crypto-js';
 
 const LoginPage: React.FC = () => {
   const [username, setUsername] = useState("")
@@ -13,12 +14,14 @@ const LoginPage: React.FC = () => {
   const [messageApi,contextHolder] = message.useMessage();
 
   const generateHash = async (data: string) => {
-    const encoder = new TextEncoder();
-    const dataBuffer = encoder.encode(data);
-    const hashBuffer = await crypto.subtle.digest('SHA-256', dataBuffer);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-    return hashHex;
+    // const encoder = new TextEncoder();
+    // const dataBuffer = encoder.encode(data);
+    // const hashBuffer = await crypto.subtle.digest('SHA-256', dataBuffer);
+    // const hashArray = Array.from(new Uint8Array(hashBuffer));
+    // const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    const hash = CryptoJS.SHA256(data).toString();
+
+    return hash;
   }
 
 
