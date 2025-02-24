@@ -1,0 +1,11 @@
+version: '3'
+services:
+  japan-website:
+    container_name: tusima-website
+    image: japan-website.dev-12-10.9680544:t4.0.1
+    restart: always
+    ports:
+      - 40072:8000
+    volumes:
+      - /data/conf/online/conf.d/:/etc/nginx/conf.d/
+      - /data/logs/online/:/data/logs/

@@ -42,6 +42,7 @@
   {
     "nft": [
       {
+        "id": 1,
         "info": "bababalalala简介",
         "nft_name": "nft 名称",
         "nft_address": "0x...",
@@ -50,6 +51,7 @@
         "end_timestamp": 1678990000 // 结束时间
       }, 
       {
+         "id": 2,
         "info": "bababalalala简介",
         "nft_name": "nft 名称",
         "nft_address": "0x...",
@@ -134,7 +136,7 @@
   "msg": "Success",
   "data": 
   {
-    "total":10, // 拥有总个数a
+    "total":10, // 拥有总个数
     "amount":5, // 已经记录个数
     "addrs": [
       {
@@ -167,7 +169,7 @@
 
 ---
 
-### 管理员导出nft空投excel
+### 管理员导出nft空投excel （需要access_token cookie鉴权）
 
 请求方法: POST
 
@@ -179,7 +181,6 @@
 {
   "nft_id": 2, // id 和 地址选填， 若有id，则通过id
   "address": "0x...", // nft 地址
-  "access_token":"sfdfad", // 鉴权
 }
 ```
 
@@ -201,7 +202,7 @@ excel 文件
 
 ### 管理员创建nft
 
-请求方法: POST
+请求方法: POST （需要access_token cookie鉴权）
 
 请求 URL： /privasea/createNft
 
@@ -216,7 +217,6 @@ excel 文件
   "logo": "logo图片",
   "start_timestamp": 1678990000, // 开始时间
   "end_timestamp": 1678990000, // 结束时间
-  "access_token":"sfdfad", // 鉴权
 }
 ```
 
@@ -233,6 +233,67 @@ excel 文件
 {
   "code": "1002",
   "msg": "Interval Server Error",
+}
+
+```
+
+### 管理员删除nft
+
+请求方法: POST（需要access_token cookie鉴权）
+
+请求 URL： /privasea/deleteNft
+
+请求数据：
+
+```json
+{
+  "id": 2,
+  "nft_address": "0x..."
+}
+```
+
+返回数据：
+
+```
+{
+  "code": "0000",
+  "msg": "Success"
+}
+
+{
+  "code": "1002",
+  "msg": "Interval Server Error"
+}
+
+```
+
+
+### 管理员登陆
+
+请求方法: GET
+
+请求 URL： /privasea/login （需要access_token cookie鉴权）
+
+请求数据：
+
+```json
+{
+  "id": 2,
+  "nft_address": "0x..."
+}
+```
+
+返回数据：
+
+```
+{
+  "code": "0000",
+  "msg": "Success"
+}
+
+{
+  "code": "1002",
+  "msg": "Interval Server Error"
 }
 
 ```

@@ -6,6 +6,11 @@ let baseURL = BASE_API_URL;
 const service = axios.create({
   baseURL,
   timeout,
+  headers: {
+    access_token: `${localStorage.getItem('token')}`,
+
+  },
+  withCredentials: true, // 跨域时需要��带cookie
 });
 
 let requestHeaders;

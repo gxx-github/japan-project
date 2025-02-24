@@ -41,3 +41,13 @@ export function fetchCreatNft(data: any) {
     data
   });
 }
+
+//管理员登录
+
+export function fetchLogin(data: any) {
+  return request({
+    url: `/privasea/login`,
+    method: "GET",
+    data
+  });
+}
