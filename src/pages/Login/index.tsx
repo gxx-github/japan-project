@@ -28,16 +28,20 @@ const LoginPage: React.FC = () => {
     console.log("Login attempt", { username, password })
     // 这里添加实际的登录逻辑
     // 假设 username 和 password 都为 "admin" 才算成功
-    const Params = {
-      "id": password, // nft id
-      "nft_address": username, // 连接地址，默认
-    }
-    fetchLogin(Params)
+ 
+    generateHash(password).then(hash => {
+      console.log('SHA-256 Hash:', hash);
+      localStorage.setItem('token',hash)
+      document.cookie = `access_token=${encodeURIComponent(hash)}`;
+     
+      fetchLogin()
       .then((res) => {
         messageApi.open({
           type: 'success',
-          content: '领取成功',
+          content: '登录成功',
         });
+        localStorage.setItem('isLogin','true')
+        history.push('/list')
       
       })
       .catch(() => {
@@ -47,13 +51,16 @@ const LoginPage: React.FC = () => {
         });
 
       });
+    });
+   
   }
   useEffect(() => {
     // 示例用法
     generateHash('3UTiPP5EqDWGdyb3FYDBl').then(hash => {
       console.log('SHA-256 Hash:', hash);
-      localStorage.setItem('token', hash)
+      localStorage.setItem('token',hash)
       document.cookie = `access_token=${encodeURIComponent(hash)}`;
+      localStorage.setItem('isLogin','true')
     });
 
     return () => {

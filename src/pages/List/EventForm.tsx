@@ -6,6 +6,7 @@ import type { Event } from "./Event"
 import styles from "./index.less"
 import { fetchCreatNft, fetchExport } from "@/api/home"
 import moment from 'moment';
+import { message } from "antd";
 
 interface FormData {
     spend: string
@@ -13,7 +14,6 @@ interface FormData {
     info: string
     start_timestamp: number
     end_timestamp: number
-    access_token?: string
     nft_address: string
 }
 interface EventFormProps {
@@ -23,100 +23,123 @@ interface EventFormProps {
 }
 
 const EventForm: React.FC<EventFormProps> = ({ event, onSubmit, onCancel }) => {
-    console.log(event,'editEvent');
-    
     const [formData, setFormData] = useState<FormData>({
         spend: '',
         nft_name: "",
         info: "",
         start_timestamp: 0,
         end_timestamp: 0,
-        access_token: "",
         nft_address: ''
     })
 
+    const [messageApi, contextHolder] = message.useMessage();
+
     const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target
-        setFormData((prevState) => ({
-            ...prevState,
-            [name]: value,
-        }))
+        if (name === "start_timestamp" || name === "end_timestamp") {
+            const timestamp = new Date(value).getTime() / 1000
+            setFormData((prev) => ({ ...prev, [name]: timestamp }))
+        } else {
+            setFormData((prev) => ({ ...prev, [name]: value }))
+        }
     }
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: any) => {
         e.preventDefault()
-        console.log(formData)
-        // const formDataToSubmit = {
-        //     ...formData,
-        //     start_timestamp: new Date(formData.start_timestamp).getTime() / 1000, // Convert to Unix timestamp
-        //     end_timestamp: new Date(formData.end_timestamp).getTime() / 1000, // Convert to Unix timestamp
-        // };
-        // fetchCreatNft(formDataToSubmit)
-        //     .then((res) => {
-        //         alert('创建成功')
-        //     })
-        //     .catch(() => {
-
-        //     });
+        const formDataToSubmit = {
+            info: formData.info,
+            nft_address: formData.nft_address,
+            logo: formData.spend,
+            start_timestamp: formData.start_timestamp, // Convert to Unix timestamp
+            end_timestamp: formData.end_timestamp, // Convert to Unix timestamp
+        };
+        fetchCreatNft(formDataToSubmit)
+            .then((res) => {
+                messageApi.open({
+                    type: 'success',
+                    content: '修改成功',
+                });
+                setTimeout(() => {
+                    onSubmit(e)
+                }, 1000);
+            })
+            .catch(() => {
+                messageApi.open({
+                    type: 'error',
+                    content: 'request error',
+                });
+            });
+    }
+    const formatDateForInput = (timestamp: number) => {
+        return moment(timestamp * 1000).format('YYYY-MM-DDTHH:mm')
     }
     useEffect(() => {
-        if(event){
-          setFormData(event)
+        if (event) {
+            setFormData({
+                ...event,
+                start_timestamp: event.start_timestamp,
+                end_timestamp: event.end_timestamp,
+            })
         }
-    
-      return () => {
-        
-      }
+
+        return () => {
+
+        }
     }, [event])
-    
+
 
     return (
-        <form className={styles["upload-form"]} onClick={onSubmit}>
-             <div className={styles["form-con"]}>
-            <h2>Edit Form</h2>
-            <div className={styles["form-group"]}>
-                <label htmlFor="nft_name">logo:</label>
-                <input type="text" id="logo" name="logo" value={formData.spend} onChange={handleInputChange} required />
-            </div>
-            <div className={styles["form-group"]}>
-                <label htmlFor="nft_name">nft_name:</label>
-                <input type="text" id="nft_name" name="nft_name" value={formData.nft_name} onChange={handleInputChange} required />
-            </div>
-            <div className={styles["form-group"]}>
-                <label htmlFor="nft_address">nft_address:</label>
-                <input type="text" id="nft_address" name="nft_address" value={formData.nft_address} onChange={handleInputChange} required />
-            </div>
-            <div className={styles["form-group"]}>
-                <label htmlFor="info">infoduction:</label>
-                <textarea id="info" name="info" value={formData.info} onChange={handleInputChange} required />
-            </div>
-            <div className={styles["form-group"]}>
-                <label htmlFor="start_timestamp">Start Time:</label>
-                <input
-                    type="datetime-local"
-                    id="start_timestamp"
-                    value={moment(formData.start_timestamp*1000).format('YYYY-MM-DDTHH:mm')}
-                    onChange={handleInputChange}
-                    required
-                />
-            </div>
-            <div className={styles["form-group"]}>
-                <label htmlFor="end_timestamp">End Time:</label>
-                <input
-                    type="datetime-local"
-                    id="end_timestamp"
-                    name="end_timestamp"
-                    value={moment(formData.end_timestamp*1000).format('YYYY-MM-DDTHH:mm')}
-                    onChange={handleInputChange}
-                    required
-                />
-            </div>
-            <div className={styles["form-group"]}>
-                <label htmlFor="access_token">access_token:</label>
-                <input type="text" id="access_token" name="access_token" value={formData.access_token} onChange={handleInputChange} required />
-            </div>
-            <button type="submit" className={styles["submit-button"]}>
-                Submit
-            </button>
+        <form className={styles["upload-form"]} >
+            {contextHolder}
+            <div className={styles["form-con"]}>
+                <h2>Edit Form</h2>
+                <div className={styles["form-group"]}>
+                    <label htmlFor="nft_name">logo:</label>
+                    <input type="text" id="logo" name="logo" value={formData.spend} onChange={handleInputChange} required />
+                </div>
+                <div className={styles["form-group"]}>
+                    <label htmlFor="nft_name">nft_name:</label>
+                    <input type="text" id="nft_name" name="nft_name" value={formData.info} onChange={handleInputChange} required />
+                </div>
+                <div className={styles["form-group"]}>
+                    <label htmlFor="nft_address">nft_address:</label>
+                    <input type="text" id="nft_address" name="nft_address" value={formData.nft_address} onChange={handleInputChange} required />
+                </div>
+                <div className={styles["form-group"]}>
+                    <label htmlFor="info">infoduction:</label>
+                    <textarea id="info" name="info" value={formData.info} onChange={handleInputChange} required />
+                </div>
+                <div className={styles["form-group"]}>
+                    <label htmlFor="start_timestamp">Start Time:</label>
+                    <input
+                        type="datetime-local"
+                        id="start_timestamp"
+                        name="start_timestamp"
+                        value={formatDateForInput(formData.start_timestamp)}
+                        onChange={handleInputChange}
+                        required
+                    />
+                </div>
+                <div className={styles["form-group"]}>
+                    <label htmlFor="end_timestamp">End Time:</label>
+                    <input
+                        type="datetime-local"
+                        id="end_timestamp"
+                        name="end_timestamp"
+                        value={formatDateForInput(formData.end_timestamp)}
+                        onChange={handleInputChange}
+                        required
+                    />
+                </div>
+                <div className={styles["submit-buttons"]} >
+                    <div className={styles["submit-button"]} onClick={handleSubmit} >
+                        Submit
+                    </div>
+                    <div className={styles["submit-button"]} onClick={onSubmit}>
+                        Calcle
+                    </div>
+                </div>
+
+
             </div>
         </form>
     )

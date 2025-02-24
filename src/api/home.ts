@@ -44,10 +44,18 @@ export function fetchCreatNft(data: any) {
 
 //管理员登录
 
-export function fetchLogin(data: any) {
+export function fetchLogin(data?: any) {
   return request({
     url: `/privasea/login`,
     method: "GET",
+    data
+  });
+}
+//管理人员删除
+export function fetchDelet(data: any) {
+  return request({
+    url: `/privasea/deleteNft`,
+    method: "POST",
     data
   });
 }

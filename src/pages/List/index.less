@@ -151,11 +151,14 @@
         width: 700px;
         margin: 0 auto;
         padding: 20px;
-        border: 1px solid #ddd;
         border-radius: 8px;
         font-size: 16px;
-        background: #fcc;
+        // background: #fcc;
         color: #000;
+        background: url(../../assets/img/common/Bg.png) no-repeat;
+        background-position: 50% center;
+        background-repeat: no-repeat;
+        background-size: cover;
       
         h2 {
           text-align: center;
@@ -183,9 +186,13 @@
             height: 100px;
           }
         }
-      
+      .submit-buttons{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
         .submit-button {
-          width: 100%;
+         flex: 1;
           padding: 10px;
           background-color: #007bff;
           color: white;
@@ -193,7 +200,10 @@
           border-radius: 4px;
           cursor: pointer;
           transition: background-color 0.3s;
-      
+          text-align: center;
+      &:nth-child(1){
+        margin-right: 20px;
+      }
           &:hover {
             background-color: #0056b3;
           }

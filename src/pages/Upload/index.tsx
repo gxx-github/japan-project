@@ -1,7 +1,9 @@
 import type React from "react"
-import { useState, type ChangeEvent, type FormEvent } from "react"
+import { useEffect, useState, type ChangeEvent, type FormEvent } from "react"
 import styles from './index.less'
 import { fetchCreatNft, fetchExport } from "@/api/home"
+import { message } from "antd";
+import { history } from "umi";
 
 
 interface FormData {
@@ -10,18 +12,18 @@ interface FormData {
   info: string
   start_timestamp: number
   end_timestamp: number
-  access_token: string
   nft_address: string
 }
 
 const UploadForm: React.FC = () => {
+  const [messageApi, contextHolder] = message.useMessage();
+
   const [formData, setFormData] = useState<FormData>({
     logo: '',
     nft_name: "",
     info: "",
     start_timestamp: 0,
     end_timestamp: 0,
-    access_token: "",
     nft_address: ''
   })
   const [downData, setdownData] = useState({
@@ -57,7 +59,11 @@ const UploadForm: React.FC = () => {
     };
     fetchCreatNft(formDataToSubmit)
       .then((res) => {
-        alert('创建成功')
+        messageApi.open({
+          type: 'success',
+          content: '领取成功',
+        });
+        history.push('/list')
       })
       .catch(() => {
 
@@ -104,8 +110,19 @@ const UploadForm: React.FC = () => {
 
   }
 
+  useEffect(() => {
+    if (!localStorage.getItem('isLogin')) {
+      history.push('/login')
+    }
+
+    return () => {
+
+    }
+  }, [localStorage.getItem('isLogin')])
+
   return (
     <>
+      {contextHolder}
       <form className={styles["upload-form"]} onSubmit={handleSubmit}>
         <h2>Upload Form</h2>
         <div className={styles["form-group"]}>
@@ -146,16 +163,16 @@ const UploadForm: React.FC = () => {
             required
           />
         </div>
-        <div className={styles["form-group"]}>
+        {/* <div className={styles["form-group"]}>
           <label htmlFor="access_token">access_token:</label>
           <input type="text" id="access_token" name="access_token" value={formData.access_token} onChange={handleInputChange} required />
-        </div>
+        </div> */}
         <button type="submit" className={styles["submit-button"]}>
           Submit
         </button>
       </form>
 
-      <form className={styles["download-form"]} onSubmit={handleSubmit1}>
+      {/* <form className={styles["download-form"]} onSubmit={handleSubmit1}>
         <h2>DownLoad Excel</h2>
         <div className={styles["form-group"]}>
           <label htmlFor="nft_id">nft_id:</label>
@@ -172,7 +189,7 @@ const UploadForm: React.FC = () => {
         <button type="submit" className={styles["submit-button"]}>
           DownLoad Excel
         </button>
-      </form>
+      </form> */}
 
 
 

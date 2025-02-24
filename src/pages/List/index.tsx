@@ -6,18 +6,21 @@ import type { Event } from "./Event"
 import styles from "./index.less"
 import EventItem from "./EventItem"
 import EventForm from "./EventForm"
-import { fetchGetNftList } from "@/api/home";
+import { fetchDelet, fetchGetNftList } from "@/api/home";
 import { history } from "umi";
+import { message } from "antd";
 
 
 const EventList: React.FC = () => {
     const TabList = ['Upcoming', 'Live', 'Ended']
     const [curChooise, setcurChooise] = useState(0)
     const [showListData, setshowListData] = useState([] as Event[])
+    const [messageApi, contextHolder] = message.useMessage();
 
     const [events, setEvents] = useState<Event[]>([])
     const [isAddingEvent, setIsAddingEvent] = useState(false)
     const [editingEvent, setEditingEvent] = useState<Event | null>(null)
+    
     const handleTab = (index: number) => {
         setcurChooise(index)
     }
@@ -43,7 +46,7 @@ const EventList: React.FC = () => {
 
     useEffect(() => {
         getNftListQuery(curChooise)
-    }, [curChooise])
+    }, [curChooise,editingEvent])
 
 
     const handleAddEvent = (newEvent: Omit<Event, "id">) => {
@@ -57,54 +60,84 @@ const EventList: React.FC = () => {
         setEditingEvent(null)
     }
 
-    const handleDeleteEvent = (id: number) => {
-        // setEvents(events.filter((event) => event.id !== id))
-        console.log('====================================');
-        console.log(id, 'iddddd');
-        console.log('====================================');
+    const handleDeleteEvent = (id: number,nft_address:string) => {
+        const Params = {
+            id: id,
+            nft_address: nft_address
+        }
+        fetchDelet(Params)
+            .then((res) => {
+                messageApi.open({
+                    type: 'success',
+                    content: '删除成功',
+                });
+                getNftListQuery(curChooise)
+
+            })
+            .catch(() => {
+                messageApi.open({
+                    type: 'error',
+                    content: 'request error',
+                });
+
+            });
     }
-    const handleDodnLoadEvent = async (id: number,address:string) => {
-        // setEvents(events.filter((event) => event.id !== id))
-        console.log('====================================');
-        console.log(id, 'iddddd');
-        console.log('====================================');
+    const handleDodnLoadEvent = async (id: number, address: string) => {
         const downDataParams = {
-          nft_id: Number(id), // Convert to Unix timestamp
-          access_token:'3UTiPP5EqDWGdyb3FYDBl',
-          address:address
+            nft_id: Number(id), // Convert to Unix timestamp
+            // access_token: '3UTiPP5EqDWGdyb3FYDBl',
+            address: address
         };
         try {
-          const response = await fetch("http://47.243.86.140:40071/privasea/export", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              // 如果需要，在这里添加认证头
-            },
-            body: JSON.stringify(downDataParams),
-          })
-          if (!response.ok) {
-            throw new Error("Network response was not ok")
-          }
-    
-          const blob = await response.blob()
-          const url = window.URL.createObjectURL(blob)
-          const a = document.createElement("a")
-          a.style.display = "none"
-          a.href = url
-          a.download = "data.xlsx"
-          document.body.appendChild(a)
-          a.click()
-          window.URL.revokeObjectURL(url)
+            const response = await fetch("/api/privasea/export", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    access_token: `${localStorage.getItem('token')}`,
+                    // 如果需要，在这里添加认证头
+                },
+                body: JSON.stringify(downDataParams),
+            })
+            if (!response.ok) {
+                throw new Error("Network response was not ok")
+            }
+
+            const blob = await response.blob()
+            const url = window.URL.createObjectURL(blob)
+            const a = document.createElement("a")
+            a.style.display = "none"
+            a.href = url
+            a.download = "data.xlsx"
+            document.body.appendChild(a)
+            a.click()
+            window.URL.revokeObjectURL(url)
         } catch (error) {
-          console.error("Download failed:", error)
-          alert("Download failed. Please try again later.")
+            console.error("Download failed:", error)
+            alert("Download failed. Please try again later.")
         } finally {
-    
+
         }
     }
 
+    useEffect(() => {
+      if(!localStorage.getItem('isLogin')){
+        history.push('/login')
+      }
+    
+      return () => {
+        
+      }
+    }, [localStorage.getItem('isLogin')])
+    
+
     return (
         <div className={styles.eventList}>
+            {contextHolder}
+            <button onClick={() => {
+                history.push('/uploadForm')
+            }} className={styles.addButton}>
+                Add Upload Nft
+            </button>
             <div className={styles.tabs}>
                 {
                     TabList.map((item, index) => {
@@ -112,24 +145,21 @@ const EventList: React.FC = () => {
                     })
                 }
             </div>
-            <button onClick={() => {
-                history.push('/uploadForm')
-            }} className={styles.addButton}>
-                Add Upload Nft
-            </button>
+
             {isAddingEvent && <EventForm onSubmit={handleAddEvent} onCancel={() => setIsAddingEvent(false)} />}
             {editingEvent && (
                 <EventForm event={editingEvent} onSubmit={handleEditEvent} onCancel={() => setEditingEvent(null)} />
             )}
-            {events.map((event) => (
+            {events.length > 0 ? events.map((event) => (
                 <EventItem
                     key={event.id}
                     event={event}
                     onEdit={() => setEditingEvent(event)}
-                    onDelete={() => handleDeleteEvent(event.id)}
-                    onDownLoad={() => handleDodnLoadEvent(event.id,event.nft_address)}
+                    onDelete={() => handleDeleteEvent(event.id,event.nft_address)}
+                    onDownLoad={() => handleDodnLoadEvent(event.id, event.nft_address)}
                 />
-            ))}
+            )) : <div>Empty Data~</div>
+            }
         </div>
     )
 }

@@ -18,7 +18,7 @@ const Claim = () => {
     const [inputValue, setinputValue] = useState('')
     const ethereumAddressRegex = /^0x[a-fA-F0-9]{40}$/;
     const { setcurChooise }: any = useContext(InfoContext);
-    const [messageApi,contextHolder] = message.useMessage();
+    const [messageApi, contextHolder] = message.useMessage();
     const [isClaimed, setisClaimed] = useState(false)
 
 
@@ -36,22 +36,21 @@ const Claim = () => {
     const quertUserNftInfo = () => {
         const Params = {
             nft_id: NftInfo.id,
-            // address: account
-            address: '0x8E64c24749B181d1c547586aC7fCDc8e07db27c3'
+            address: account
         }
         fetchUserClaimInfo(Params)
             .then((res) => {
                 const data = res.data;
-                const { total,amount } = data;
+                const { total, amount } = data;
                 if (total) {
                     setclaimAmount(total)
-                  
+
                 } else {
                     setclaimAmount(0)
                 }
-                if(total === amount){
+                if (total === amount) {
                     setisClaimed(true)
-                }else{
+                } else {
                     setisClaimed(false)
                 }
 
@@ -119,7 +118,7 @@ const Claim = () => {
                 !judgeIsMobile() ? styles.mainContent : styles.mobile
             )}
         >
-             {contextHolder}
+            {contextHolder}
             <div className={styles.commonSection}>
                 <div className={styles.innerTop}>
                     <img src={NftInfo.spend} alt="" />
@@ -139,8 +138,20 @@ const Claim = () => {
                         <div className={styles.label}>チェーン</div>
                         <div className={styles.inner1}>Polygon</div>
                     </div>
+                    {/* {
+                        claimAmount!==0 && !isClaimed ? <div className={styles.claimButton} onClick={() => handleClaim()}>申し込み</div> : 
+                    
+                        <div className={styles.claimButtonDis} >申し込み資格がありません</div>
+                    } */}
                     {
-                        claimAmount!==0 && !isClaimed ? <div className={styles.claimButton} onClick={() => handleClaim()}>申し込み</div> : <div className={styles.claimButtonDis} >申し込み資格がありません</div>
+                        claimAmount !== 0 ? <>
+                            {
+                                !isClaimed ? <div className={styles.claimButton} onClick={() => handleClaim()}>申し込み</div> : <div className={styles.claimButtonDis} onClick={()=>{
+                                    history.push('/')
+                                }}>已经领取</div>
+                            }
+
+                        </> : <div className={styles.claimButtonDis} >没有NFT可以领取</div>
                     }
 
                 </div>
