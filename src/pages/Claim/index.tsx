@@ -98,7 +98,7 @@ const Claim = () => {
         if (account) {
             setinputValue(account)
         }
-        if (!NftInfo || Object.keys(NftInfo).length === 0 && !account) {
+        if (!NftInfo || Object.keys(NftInfo).length === 0 && !account && !window.ethereum) {
             history.push('/toShow')
         }
 

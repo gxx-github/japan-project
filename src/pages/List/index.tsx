@@ -158,7 +158,7 @@ const EventList: React.FC = () => {
                     onDelete={() => handleDeleteEvent(event.id,event.nft_address)}
                     onDownLoad={() => handleDodnLoadEvent(event.id, event.nft_address)}
                 />
-            )) : <div>Empty Data~</div>
+            )) : <div className={styles.empty}>Empty Data~</div>
             }
         </div>
     )

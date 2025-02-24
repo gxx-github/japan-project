@@ -24,7 +24,6 @@ const HomePage = () => {
   const { setNftInfo,curChooise, setcurChooise }: any = useContext(InfoContext);
     const { address: account } = useAccount();
 
-  // const [curChooise, setcurChooise] = useState(0)
   const handleTab = (index: number) => {
     setcurChooise(index)
   }
@@ -41,7 +40,6 @@ const HomePage = () => {
         const data = res.data;
         const { nft } = data
         setshowListData(nft)
-        // setshowListData([])
       })
       .catch(() => {
         setshowListData([])
@@ -88,7 +86,8 @@ const HomePage = () => {
                 <div className={styles.rightDom} >
                   <div className={styles.titDom} >
                     <div className={styles.tit}>{item.nft_name}</div>
-                    <span>
+                    {
+                      !judgeIsMobile() &&   <span>
                       {
                         curChooise === 0 && <div className={styles.show}>
                           距离开始还剩:
@@ -116,8 +115,43 @@ const HomePage = () => {
 
 
                     </span>
+                    }
+                  
                   </div>
                   <div className={styles.des} >{item.info}</div>
+                  <div className={styles.timer}>
+                  {
+                      judgeIsMobile() &&   <span>
+                      {
+                        curChooise === 0 && <div className={styles.show}>
+                          距离开始还剩:
+                          <TimerDom timer={item.start_timestamp} onZero={onZero}  ></TimerDom> 
+                        </div>
+                      }
+                      {
+                        curChooise === 1 && <div className={styles.show}>
+                          距离结束还有:
+                          <TimerDom timer={item.end_timestamp} onZero={onZero}  ></TimerDom> 
+                        </div>
+                      }
+                      {
+                        curChooise === 0 ? <div className={styles.button0} >活动未开始</div> : curChooise === 1 ? <div className={styles.button} onClick={() => {
+                          if(account){
+                            history.push('/toClaim')
+
+                          }else{
+                            history.push('/toConnect')
+
+                          }
+                          setNftInfo(item)
+                        }}>活动进行中</div> : <div className={styles.button0} >活动已结束</div>
+                      }
+
+
+                    </span>
+                    }
+                  </div>
+                
                 </div>
               </div>
             })

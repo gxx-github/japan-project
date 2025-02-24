@@ -48,6 +48,7 @@ const EventForm: React.FC<EventFormProps> = ({ event, onSubmit, onCancel }) => {
         const formDataToSubmit = {
             info: formData.info,
             nft_address: formData.nft_address,
+            nft_name: formData.nft_name,
             logo: formData.spend,
             start_timestamp: formData.start_timestamp, // Convert to Unix timestamp
             end_timestamp: formData.end_timestamp, // Convert to Unix timestamp
@@ -98,7 +99,7 @@ const EventForm: React.FC<EventFormProps> = ({ event, onSubmit, onCancel }) => {
                 </div>
                 <div className={styles["form-group"]}>
                     <label htmlFor="nft_name">nft_name:</label>
-                    <input type="text" id="nft_name" name="nft_name" value={formData.info} onChange={handleInputChange} required />
+                    <input type="text" id="nft_name" name="nft_name" value={formData.nft_name} onChange={handleInputChange} required />
                 </div>
                 <div className={styles["form-group"]}>
                     <label htmlFor="nft_address">nft_address:</label>
