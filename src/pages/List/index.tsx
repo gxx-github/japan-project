@@ -134,11 +134,11 @@ const EventList: React.FC = () => {
     return (
         <div className={styles.eventList}>
             {contextHolder}
-            <button onClick={() => {
+            {/* <button onClick={() => {
                 history.push('/uploadForm')
             }} className={styles.addButton}>
                 Add Upload Nft
-            </button>
+            </button> */}
             <div className={styles.tabs}>
                 {
                     TabList.map((item, index) => {

@@ -48,7 +48,7 @@ const UploadForm: React.FC = () => {
           type: 'success',
           content: '领取成功',
         });
-        history.push('/list')
+        history.push('/admin')
       })
       .catch(() => {
 
@@ -70,18 +70,21 @@ const UploadForm: React.FC = () => {
     }
   }
   useEffect(() => {
-    if (!localStorage.getItem('isLogin')) {
-      history.push('/login')
-    }
+    console.log('====================================');
+    console.log(localStorage.getItem('isLogin'));
+    console.log('====================================');
+      if(localStorage.getItem('isLogin')!== 'true'){
+        history.push('/login')
+      }
     return () => {
     }
   }, [localStorage.getItem('isLogin')])
 
   return (
-    <>
+    <div className={styles['uploadDom']}>
       {contextHolder}
       <form className={styles["upload-form"]} onSubmit={handleSubmit}>
-        <h2>Upload Form</h2>
+        <h2>Add</h2>
         <div className={styles["form-group"]}>
           <label htmlFor="nft_name">logo:</label>
           {/* <input type="text" id="logo" name="logo" value={formData.logo} onChange={handleInputChange} required /> */}
@@ -132,7 +135,7 @@ const UploadForm: React.FC = () => {
       </form>
 
 
-    </>
+    </div>
 
   )
 }

@@ -44,7 +44,7 @@ const LoginPage: React.FC = () => {
           content: '登录成功',
         });
         localStorage.setItem('isLogin','true')
-        history.push('/list')
+        history.push('/admin')
       
       })
       .catch(() => {
@@ -59,20 +59,6 @@ const LoginPage: React.FC = () => {
     });
    
   }
-  useEffect(() => {
-    // 示例用法
-    generateHash('3UTiPP5EqDWGdyb3FYDBl').then(hash => {
-      console.log('SHA-256 Hash:', hash);
-      localStorage.setItem('token',hash)
-      document.cookie = `access_token=${encodeURIComponent(hash)}`;
-      localStorage.setItem('isLogin','true')
-    });
-
-    return () => {
-
-    }
-  }, [])
-
 
   return (
     <div className={styles.loginContainer}>
