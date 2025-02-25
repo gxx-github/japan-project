@@ -12,7 +12,10 @@ const AdminPage: React.FC = () => {
 
   const handleLogout = () => {
     // 处理登出逻辑
-    console.log("logout")
+    localStorage.removeItem('isLogin')
+    localStorage.removeItem('token')
+    document.cookie = `access_token=${encodeURIComponent('')}`
+    history.push('/login')
   }
   useEffect(() => {
     //   if(localStorage.getItem('isLogin')!== 'true'){

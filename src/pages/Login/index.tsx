@@ -33,10 +33,8 @@ const LoginPage: React.FC = () => {
     // 假设 username 和 password 都为 "admin" 才算成功
  
     generateHash(password).then(hash => {
-      console.log('SHA-256 Hash:', hash);
       localStorage.setItem('token',hash)
       document.cookie = `access_token=${encodeURIComponent(hash)}`;
-     
       fetchLogin()
       .then((res) => {
         messageApi.open({
@@ -50,13 +48,18 @@ const LoginPage: React.FC = () => {
       .catch(() => {
         messageApi.open({
           type: 'error',
-          content: 'Request failed with status code 500',
+          content: 'Request failed ',
         });
         localStorage.setItem('isLogin','false')
 
 
       });
-    });
+    }).catch(()=>{
+      messageApi.open({
+        type: 'error',
+        content: '',
+      });
+    })
    
   }
 
