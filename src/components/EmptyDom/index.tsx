@@ -1,8 +1,10 @@
 import styles from "./index.less";
-import { useEffect } from "react";
-import font from '../../assets/img/Home/font.png';
+import { useContext, useEffect } from "react";
+import font from '../../assets/img/Home/emptyFont.png';
 import classnames from "classnames";
 import { judgeIsMobile } from "@/utils";
+import { InfoContext } from "../InfoProvider";
+
 
 type Props = {
     type: number;
@@ -12,6 +14,7 @@ export default function EmptyDom(props: Props) {
     const {
         type
     } = props;
+  const { setcurChooise }: any = useContext(InfoContext);
 
     return (
         <div
@@ -23,7 +26,9 @@ export default function EmptyDom(props: Props) {
                 type === 0 && <>
                     <div className={styles.text}>現在申し込み受付予定のプロジェクトはありません
                         αU marketからのお知らせをお待ちください</div>
-                    <div className={styles.button}>αU marketをみる</div>
+                    <div className={styles.button} onClick={()=>{
+                        window.open('https://market.alpha-u.io/')
+                    }}>αU marketをみる</div>
                 </>
             }
             {
@@ -31,16 +36,16 @@ export default function EmptyDom(props: Props) {
                     <div className={styles.text}>現在申し込み受付が可能なプロジェクトはありません
                     </div>
                     <div className={styles.button1}>
-                        {/* <img src={font} alt="" /> */}
-                        No Data ～
+                        <img src={font} alt="" />
                     </div></>
             }
             {
                 type === 2 && <>
                     <div className={styles.text}>申し込みが終了したプロジェクトはありません</div>
-                    <div className={styles.button1}>
-                        {/* <img src={font} alt="" /> */}
-                       No Data ～
+                    <div className={styles.button1} onClick={()=>{
+                        setcurChooise(1)
+                    }}>
+                        <img src={font} alt="" />
                     </div>
                 </>
             }

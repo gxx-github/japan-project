@@ -120,9 +120,10 @@ const EventList: React.FC = () => {
     }
 
     useEffect(() => {
-      if(!localStorage.getItem('isLogin')){
-        history.push('/login')
-      }
+    
+    //   if(localStorage.getItem('isLogin')!== 'true'){
+    //     history.push('/login')
+    //   }
     
       return () => {
         

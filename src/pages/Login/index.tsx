@@ -52,6 +52,8 @@ const LoginPage: React.FC = () => {
           type: 'error',
           content: 'Request failed with status code 500',
         });
+        localStorage.setItem('isLogin','false')
+
 
       });
     });
