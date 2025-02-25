@@ -55,8 +55,12 @@ const Claim = () => {
                 }
 
             })
-            .catch(() => {
+            .catch((err) => {
                 setclaimAmount(0)
+                messageApi.open({
+                    type: 'error',
+                    content: err.message,
+                });
             });
     }
     const handleClaim = () => {
@@ -80,11 +84,11 @@ const Claim = () => {
                     history.push('/')
                 }, 3000);
             })
-            .catch(() => {
+            .catch((err) => {
                 // setclaimAmount(0)
                 messageApi.open({
                     type: 'error',
-                    content: 'Request failed with status code 500',
+                    content: err.message,
                 });
 
             });
@@ -131,7 +135,7 @@ const Claim = () => {
                     <div className={styles.showItem}>
                         <div className={styles.label}>エアドロップ
                             受け取りアドレス</div>
-                        <input className={styles.inner} value={inputValue} onChange={handleInputChange} />
+                        <input className={styles.inner} value={''} onChange={handleInputChange} />
 
                     </div>
                     <div className={styles.showItem}>

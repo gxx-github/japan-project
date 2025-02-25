@@ -13,6 +13,7 @@ interface FormData {
   start_timestamp: number
   end_timestamp: number
   nft_address: string
+  chain:string
 }
 
 const UploadForm: React.FC = () => {
@@ -24,7 +25,8 @@ const UploadForm: React.FC = () => {
     info: "",
     start_timestamp: 0,
     end_timestamp: 0,
-    nft_address: ''
+    nft_address: '',
+    chain:''
   })
   const fileInputRef = useRef<HTMLInputElement>(null)
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -50,8 +52,11 @@ const UploadForm: React.FC = () => {
         });
         history.push('/admin')
       })
-      .catch(() => {
-
+      .catch((err) => {
+messageApi.open({
+  type: 'error',
+  content: err.message,
+});
       });
   }
 
@@ -70,12 +75,9 @@ const UploadForm: React.FC = () => {
     }
   }
   useEffect(() => {
-    console.log('====================================');
-    console.log(localStorage.getItem('isLogin'));
-    console.log('====================================');
-      if(localStorage.getItem('isLogin')!== 'true'){
-        history.push('/login')
-      }
+      // if(localStorage.getItem('isLogin')!== 'true'){
+      //   history.push('/login')
+      // }
     return () => {
     }
   }, [localStorage.getItem('isLogin')])
@@ -98,6 +100,10 @@ const UploadForm: React.FC = () => {
         <div className={styles["form-group"]}>
           <label htmlFor="nft_address">nft_address:</label>
           <input type="text" id="nft_address" name="nft_address" value={formData.nft_address} onChange={handleInputChange} required />
+        </div>
+        <div className={styles["form-group"]}>
+          <label htmlFor="chain">chain:</label>
+          <input type="text" id="chain" name="chain" value={formData.chain} onChange={handleInputChange} required />
         </div>
         <div className={styles["form-group"]}>
           <label htmlFor="info">infoduction:</label>

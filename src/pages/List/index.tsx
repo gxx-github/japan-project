@@ -14,7 +14,6 @@ import { message } from "antd";
 const EventList: React.FC = () => {
     const TabList = ['Upcoming', 'Live', 'Ended']
     const [curChooise, setcurChooise] = useState(0)
-    const [showListData, setshowListData] = useState([] as Event[])
     const [messageApi, contextHolder] = message.useMessage();
 
     const [events, setEvents] = useState<Event[]>([])
@@ -39,7 +38,7 @@ const EventList: React.FC = () => {
 
             })
             .catch(() => {
-                setshowListData([])
+                setEvents([])
 
             });
     }

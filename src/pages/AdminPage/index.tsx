@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 import styles from "./index.less"
 import EventList from "../List"
 import {history} from 'umi'
+import UserDom from "../User"
 
 const AdminPage: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false)
@@ -52,13 +53,13 @@ const AdminPage: React.FC = () => {
             {!collapsed && <span>用户列表</span>}
           </div>
 
-          <div
+          {/* <div
             className={`${styles.menuItem} ${activeMenu === "settings" ? styles.active : ""}`}
             onClick={() => setActiveMenu("settings")}
           >
             <div className={styles.menuIcon}>⚙️</div>
             {!collapsed && <span>系统设置</span>}
-          </div>
+          </div> */}
 
            
 
@@ -97,7 +98,9 @@ const AdminPage: React.FC = () => {
           {activeMenu === "dashboard" && (
            <EventList></EventList>
           )}
-          {activeMenu === "user" && <div>用户管理内容</div>}
+          {activeMenu === "user" && <>
+            <UserDom></UserDom>
+            </>}
           {/* {activeMenu === "products" && <div>产品管理内容</div>} */}
           {/* {activeMenu === "orders" && <div>订单管理内容</div>} */}
           {activeMenu === "settings" && <div>系统设置内容</div>}

@@ -9,6 +9,7 @@ import moment from 'moment';
 import { TimerDom } from "@/components/Timer";
 import { InfoContext } from "@/components/InfoProvider";
 import { useAccount } from "wagmi";
+import { message } from "antd";
 
 interface ListItem {
   info: string;
@@ -23,6 +24,7 @@ const HomePage = () => {
   const TabList = ['Upcoming', 'Live', 'Ended']
   const { setNftInfo,curChooise, setcurChooise }: any = useContext(InfoContext);
     const { address: account } = useAccount();
+    const [messageApi, contextHolder] = message.useMessage();
 
   const handleTab = (index: number) => {
     setcurChooise(index)
@@ -41,9 +43,12 @@ const HomePage = () => {
         const { nft } = data
         setshowListData(nft)
       })
-      .catch(() => {
+      .catch((err) => {
         setshowListData([])
-
+        messageApi.open({
+          type: 'error',
+          content: err.message,
+      });
       });
   }
   const onZero = () => {
@@ -63,6 +68,7 @@ const HomePage = () => {
         !judgeIsMobile() ?  styles.mainContent : styles.mobile
       )}
     >
+        {contextHolder}
       <div className={styles.float} onClick={()=>{
         history.push('/login')
       }}>Jump</div>
