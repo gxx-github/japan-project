@@ -11,11 +11,11 @@ import { message } from "antd";
 
 const UserDom: React.FC = () => {
   const [users, setUsers] = useState<User[]>([
-  
+
   ]);
-    const { userInfo }: any = useContext(InfoContext);
-    const [messageApi, contextHolder] = message.useMessage();
-  
+  const { userInfo }: any = useContext(InfoContext);
+  const [messageApi, contextHolder] = message.useMessage();
+
   const [editingUser, setEditingUser] = useState<User | null>(null);
   const [showAddForm, setShowAddForm] = useState(false); // 控制添加表单的显示
   //添加用户
@@ -27,25 +27,48 @@ const UserDom: React.FC = () => {
     }
     fetchAddUser(Params)
       .then((res) => {
-        console.log('====================================');
-        console.log(res,'增加用户');
-        console.log('====================================');
-        if(res){
+    
+        if (res) {
           messageApi.open({
             type: 'success',
             content: '添加成功',
           });
+          setShowAddForm(false);
+          getUserList()
         }
       })
       .catch((err) => {
-        setUsers([])
+        messageApi.open({
+          type: 'error',
+          content: err.message,
+        });
       });
     // setShowAddForm(false); // 添加用户后隐藏表单
   };
   //编辑
   const handleUpdateUser = (updatedUser: User) => {
-    // setUsers(users.map((user) => (user.id === updatedUser.id ? updatedUser : user)));
-
+    const Params = {
+      "name": updatedUser.name,
+      "pass_word": updatedUser.pass_word
+    }
+    fetchAddUser(Params)
+      .then((res) => {
+    
+        if (res) {
+          messageApi.open({
+            type: 'success',
+            content: '修改成功',
+          });
+          setShowAddForm(false);
+          getUserList()
+        }
+      })
+      .catch((err) => {
+        messageApi.open({
+          type: 'error',
+          content: err.message,
+        });
+      });
     setEditingUser(null);
   };
   //删除
@@ -55,49 +78,58 @@ const UserDom: React.FC = () => {
     }
     fetchDelUser(Params)
       .then((res) => {
-        console.log('====================================');
-        console.log(res,'删除用户');
-        console.log('====================================');
+        if(res){
+          messageApi.open({
+            type: 'success',
+            content: '删除成功',
+          });
+          getUserList()
+        }
       })
       .catch((err) => {
-        setUsers([])
+
+        messageApi.open({
+          type: 'error',
+          content: err.message,
+        });
       });
-   
+
   };
   //取消编辑
   const handleCancelEdit = () => {
     setEditingUser(null); // 关闭编辑表单
   };
   //获取用户列表
-  const getUserList = ()=>{
-     const Params = {
-          "name": userInfo || localStorage.getItem('user'), 
-          "page": 1,
-          "limit": 50
+  const getUserList = () => {
+    const Params = {
+      "name": userInfo || localStorage.getItem('user'),
+      "page": 1,
+      "limit": 50
+    }
+    fetchUserList(Params)
+      .then((res) => {
+        if (res) {
+          const { data } = res
+          const { users } = data
+          setUsers(users)
         }
-        fetchUserList(Params)
-          .then((res) => {
-            console.log('====================================');
-            console.log(res,'用户列表');
-            console.log('====================================');
-            if(res){
-              const {data} = res
-              const { users } = data
-              setUsers(users)
-            }
-          })
-          .catch((err) => {
-            setUsers([])
-          });
+      })
+      .catch((err) => {
+        messageApi.open({
+          type: 'error',
+          content: err.message,
+        });
+        setUsers([])
+      });
   }
   useEffect(() => {
     getUserList()
-  
+
     return () => {
-      
+
     }
   }, [])
-  
+
   return (
     <div className="container">
       {contextHolder}

@@ -36,7 +36,8 @@ const LoginPage: React.FC = () => {
     const Params = {
       name: username,
       // pass_word: '3UTiPP5EqDWGdyb3FYDBl'
-      pass_word: btoa(password)
+      // pass_word: btoa(password)
+      pass_word: password
     }
     fetchLogin(Params)
       .then((res) => {
@@ -57,16 +58,15 @@ const LoginPage: React.FC = () => {
             localStorage.setItem('isLogin', 'true')
             history.push('/admin')
           })
-
         }
 
 
       })
-      .catch(() => {
-        // messageApi.open({
-        //   type: 'error',
-        //   content: 'Request failed ',
-        // });
+      .catch((err) => {
+        messageApi.open({
+          type: 'error',
+          content:err.message ,
+        });
         localStorage.setItem('isLogin', 'false')
 
 

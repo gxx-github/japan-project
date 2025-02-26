@@ -75,9 +75,9 @@ messageApi.open({
     }
   }
   useEffect(() => {
-      // if(localStorage.getItem('isLogin')!== 'true'){
-      //   history.push('/login')
-      // }
+      if(localStorage.getItem('isLogin')!== 'true'){
+        history.push('/login')
+      }
     return () => {
     }
   }, [localStorage.getItem('isLogin')])

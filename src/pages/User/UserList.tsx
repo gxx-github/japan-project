@@ -29,10 +29,20 @@ const UserList: React.FC<UserListProps> = ({ users, onEdit ,onDelet}) => {
             <tr key={index}>
               <td>{index+1}</td>
               <td>{user.name}</td>
+              {/* <td>{atob(user.pass_word)}</td> */}
               <td>{user.pass_word}</td>
               <td>
-                <button onClick={() => onEdit(user)} disabled={user.name === userInfo}>Edit</button>
-                <button onClick={() => onDelet(user,user.name)} className="cancel-button" disabled={user.name === userInfo}>Delet</button>
+                <button onClick={() => {
+                 
+                  if(user.name !== userInfo || user.name!==localStorage.getItem('user')){
+                    onEdit(user)
+                  }
+                }} disabled={user.name === userInfo || user.name===localStorage.getItem('user')}>Edit</button>
+                <button onClick={() => {
+                  if(user.name !== userInfo || user.name!==localStorage.getItem('user')){
+                    onDelet(user,user.name)
+                  }
+                }} className={"cancel-button"} disabled={user.name === userInfo || user.name!==localStorage.getItem('user')}>Delet</button>
               </td>
             </tr>
           )) 

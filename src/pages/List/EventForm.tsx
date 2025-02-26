@@ -15,6 +15,7 @@ interface FormData {
     start_timestamp: number
     end_timestamp: number
     nft_address: string
+    chain?: string
 }
 interface EventFormProps {
     event?: Event
@@ -33,7 +34,8 @@ const EventForm: React.FC<EventFormProps> = ({ event, onSubmit, onCancel }) => {
         info: "",
         start_timestamp: 0,
         end_timestamp: 0,
-        nft_address: ''
+        nft_address: '',
+        chain:''
     })
 
     const [messageApi, contextHolder] = message.useMessage();
@@ -50,6 +52,7 @@ const EventForm: React.FC<EventFormProps> = ({ event, onSubmit, onCancel }) => {
     const handleSubmit = (e: any) => {
         e.preventDefault()
         const formDataToSubmit = {
+            chain:formData.chain,
             info: formData.info,
             nft_address: formData.nft_address,
             nft_name: formData.nft_name,
@@ -154,6 +157,10 @@ const EventForm: React.FC<EventFormProps> = ({ event, onSubmit, onCancel }) => {
                 <div className={styles["form-group"]}>
                     <label htmlFor="nft_address">nft_address:</label>
                     <input type="text" id="nft_address" name="nft_address" value={formData.nft_address} onChange={handleInputChange} required />
+                </div>
+                <div className={styles["form-group"]}>
+                    <label htmlFor="chain">chain:</label>
+                    <input type="text" id="chain" name="chain" value={formData.chain} onChange={handleInputChange} required />
                 </div>
                 <div className={styles["form-group"]}>
                     <label htmlFor="info">infoduction:</label>

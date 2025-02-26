@@ -17,13 +17,16 @@ const AdminPage: React.FC = () => {
     // 处理登出逻辑
     localStorage.removeItem('isLogin')
     localStorage.removeItem('token')
+    localStorage.removeItem('user')
     document.cookie = `access_token=${encodeURIComponent('')}`
+    document.cookie = `access_name=`;
+
     history.push('/login')
   }
   useEffect(() => {
-    //   if(localStorage.getItem('isLogin')!== 'true'){
-    //     history.push('/login')
-    //   }
+      if(localStorage.getItem('isLogin')!== 'true'){
+        history.push('/login')
+      }
     return () => {
     }
   }, [localStorage.getItem('isLogin')])
