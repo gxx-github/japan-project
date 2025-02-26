@@ -10,18 +10,18 @@ interface EditUserFormProps {
   }
   
   const EditUserForm: React.FC<EditUserFormProps> = ({ user, onUpdateUser,onCancel }) => {
-    const [username, setUsername] = useState(user.username);
+    const [username, setUsername] = useState(user.name);
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false); // 控制密码可见性
   
     useEffect(() => {
-      setUsername(user.username);
-      setPassword(user.password);
+      setUsername(user.name);
+      setPassword(user.pass_word);
     }, [user]);
   
     const handleSubmit = (e: React.FormEvent) => {
       e.preventDefault();
-      onUpdateUser({ ...user, username, password });
+      onUpdateUser({ ...user,name: username,pass_word: password });
       setPassword('');
     };
   

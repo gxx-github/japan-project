@@ -13,7 +13,7 @@ const AddUserForm: React.FC<AddUserFormProps> = ({ onAddUser }) => {
   
     const handleSubmit = (e: React.FormEvent) => {
       e.preventDefault();
-      onAddUser({ username, password });
+      onAddUser({name:username, pass_word:password });
       setUsername('');
       setPassword('');
     };

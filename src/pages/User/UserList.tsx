@@ -7,7 +7,7 @@ import { InfoContext } from '@/components/InfoProvider';
 interface UserListProps {
   users: User[];
   onEdit: (user: User) => void;
-  onDelet: (user: User,id:number) => void;
+  onDelet: (user: User,name?:string) => void;
 }
 
 const UserList: React.FC<UserListProps> = ({ users, onEdit ,onDelet}) => {
@@ -25,21 +25,21 @@ const UserList: React.FC<UserListProps> = ({ users, onEdit ,onDelet}) => {
           </tr>
         </thead>
         <tbody>
-          { users.length!==0 && users.map((user,index) => (
+          { users && users.map((user,index) => (
             <tr key={index}>
               <td>{index+1}</td>
-              <td>{user.username}</td>
-              <td>{user.password}</td>
+              <td>{user.name}</td>
+              <td>{user.pass_word}</td>
               <td>
-                <button onClick={() => onEdit(user)} disabled={user.username === userInfo}>Edit</button>
-                <button onClick={() => onDelet(user,user.id)} className="cancel-button" disabled={user.username === userInfo}>Delet</button>
+                <button onClick={() => onEdit(user)} disabled={user.name === userInfo}>Edit</button>
+                <button onClick={() => onDelet(user,user.name)} className="cancel-button" disabled={user.name === userInfo}>Delet</button>
               </td>
             </tr>
           )) 
         }
         </tbody>
       </table>
-      {users.length === 0 && <div className="empty">No users found.</div>}
+      {!users && <div className="empty">No users found.</div>}
     </div>
   );
 };

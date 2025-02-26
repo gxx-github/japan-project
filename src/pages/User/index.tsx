@@ -7,47 +7,51 @@ import UserList from './UserList';
 import EditUserForm from './EditUserForm';
 import { InfoContext } from '@/components/InfoProvider';
 import { fetchAddUser, fetchDelUser, fetchUserInfo, fetchUserList } from '@/api/home';
+import { message } from "antd";
 
 const UserDom: React.FC = () => {
   const [users, setUsers] = useState<User[]>([
-    { id: 1, username: 'admin', password: 'admin123' },
-    { id: 2, username: 'user', password: 'user123' },
+  
   ]);
     const { userInfo }: any = useContext(InfoContext);
+    const [messageApi, contextHolder] = message.useMessage();
   
   const [editingUser, setEditingUser] = useState<User | null>(null);
   const [showAddForm, setShowAddForm] = useState(false); // 控制添加表单的显示
   //添加用户
   const handleAddUser = (newUser: Omit<User, 'id'>) => {
-    setUsers([...users, { ...newUser, id: users.length + 1 }]);
+    // setUsers([...users, { ...newUser, id: users.length + 1 }]);
     const Params = {
-      "name": newUser.username,
-      "pass_word": newUser.password
+      "name": newUser.name,
+      "pass_word": newUser.pass_word
     }
     fetchAddUser(Params)
       .then((res) => {
         console.log('====================================');
         console.log(res,'增加用户');
         console.log('====================================');
+        if(res){
+          messageApi.open({
+            type: 'success',
+            content: '添加成功',
+          });
+        }
       })
       .catch((err) => {
         setUsers([])
       });
-    setShowAddForm(false); // 添加用户后隐藏表单
+    // setShowAddForm(false); // 添加用户后隐藏表单
   };
   //编辑
   const handleUpdateUser = (updatedUser: User) => {
-    setUsers(users.map((user) => (user.id === updatedUser.id ? updatedUser : user)));
+    // setUsers(users.map((user) => (user.id === updatedUser.id ? updatedUser : user)));
 
     setEditingUser(null);
   };
   //删除
-  const handleDeleteUser = (user: User, id: number) => {
-    console.log('====================================');
-    console.log(user, '删除接口');
-    console.log('====================================');
+  const handleDeleteUser = (user: User, name?: string) => {
     const Params = {
-      "name": user.username
+      "name": user.name
     }
     fetchDelUser(Params)
       .then((res) => {
@@ -76,6 +80,11 @@ const UserDom: React.FC = () => {
             console.log('====================================');
             console.log(res,'用户列表');
             console.log('====================================');
+            if(res){
+              const {data} = res
+              const { users } = data
+              setUsers(users)
+            }
           })
           .catch((err) => {
             setUsers([])
@@ -91,6 +100,7 @@ const UserDom: React.FC = () => {
   
   return (
     <div className="container">
+      {contextHolder}
       {/* <h1>User Management</h1> */}
 
       {/* 添加用户按钮 */}
