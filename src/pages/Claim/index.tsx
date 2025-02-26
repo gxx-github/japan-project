@@ -99,14 +99,13 @@ const Claim = () => {
         if (!account) {
             history.push('/toConnect')
         }
-        if (account) {
-            setinputValue(account)
-        }
+        // if (account) {
+        //     setinputValue(account)
+        // }
         if (!NftInfo || Object.keys(NftInfo).length === 0 && !account && !window.ethereum) {
             history.push('/toShow')
         }
 
-        console.log(account, 'account');
 
 
         return () => {
@@ -135,12 +134,12 @@ const Claim = () => {
                     <div className={styles.showItem}>
                         <div className={styles.label}>エアドロップ
                             受け取りアドレス</div>
-                        <input className={styles.inner} value={''} onChange={handleInputChange} />
+                        <input className={styles.inner} value={inputValue} onChange={handleInputChange} />
 
                     </div>
                     <div className={styles.showItem}>
                         <div className={styles.label}>チェーン</div>
-                        <div className={styles.inner1}>Polygon</div>
+                        <div className={styles.inner1}>{NftInfo.chain||''}</div>
                     </div>
                     {/* {
                         claimAmount!==0 && !isClaimed ? <div className={styles.claimButton} onClick={() => handleClaim()}>申し込み</div> : 
