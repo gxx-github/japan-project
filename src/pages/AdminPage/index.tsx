@@ -1,15 +1,17 @@
 "use client"
 
 import type React from "react"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import styles from "./index.less"
 import EventList from "../List"
 import {history} from 'umi'
 import UserDom from "../User"
+import { InfoContext } from "@/components/InfoProvider"
 
 const AdminPage: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false)
   const [activeMenu, setActiveMenu] = useState("dashboard")
+  const { userInfo }: any = useContext(InfoContext);
 
   const handleLogout = () => {
     // 处理登出逻辑
@@ -86,7 +88,7 @@ const AdminPage: React.FC = () => {
             {activeMenu === "settings" && "系统设置"} */}
           </div>
           <div className={styles.userInfo}>
-            <span className={styles.username}>Admin</span>
+            <span className={styles.username}>{ userInfo  }</span>
             <div className={styles.logoutBtn} onClick={handleLogout}>
               退出
             </div>

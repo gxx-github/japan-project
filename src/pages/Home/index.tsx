@@ -69,9 +69,12 @@ const HomePage = () => {
       )}
     >
         {contextHolder}
-      <div className={styles.float} onClick={()=>{
-        history.push('/login')
-      }}>Jump</div>
+        {
+           !judgeIsMobile()  &&  <div className={styles.float} onClick={()=>{
+            history.push('/login')
+          }}>Jump</div>
+        }
+     
       <div className={styles.commonSection}>
         <div className={styles.tabs} >
           {

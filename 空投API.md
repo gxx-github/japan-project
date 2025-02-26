@@ -297,3 +297,230 @@ excel 文件
 }
 
 ```
+
+# nftService 接口
+
+## 修改
+
+### 管理员创建nft
+
+请求方法: POST
+
+请求 URL： /privasea/createNft
+
+
+请求数据：
+
+```json
+{
+  "info": "bababalalala简介",
+  "nft_name": "nft 名称",
+  "nft_address": "0x...",
+  "logo": "logo图片",
+  "start_timestamp": 1678990000, // 开始时间
+  "end_timestamp": 1678990000, // 结束时间
+  "access_token":"sfdfad", // 鉴权
+  "chain": "bsc" //链
+}
+```
+
+
+返回数据：
+
+```json
+{
+  "code": "0000",
+  "msg": "Success",
+}
+
+
+{
+  "code": "1002",
+  "msg": "Interval Server Error",
+}
+
+```
+
+### 管理员登陆
+
+请求方法: POST
+
+请求 URL： /privasea/login
+
+
+请求数据：
+
+```json
+{
+  "name": "tome", 
+  "pass_word": "fdsaadsffds"  // base64加密
+}
+```
+
+返回数据：
+
+```
+{
+  "code": "0000",
+  "msg": "Success",
+  "data": 
+    {
+        "token":"sfdfad", // 鉴权
+    } 
+}
+
+{
+  "code": "1002",
+  "msg": "Interval Server Error"
+}
+
+```
+
+### cookie项
+
+cookie包含access_token和用户名
+
+#### access_token制作
+* 获取token
+* 将其转化为hash，获取token的最后20个字节
+* 将其转为hex 小写，即为access_token
+* 放入cookie中作为鉴权，即为：access_token=""
+
+#### 用户名
+* 放入cookie中，即为：access_name=""
+
+## 新增
+
+### 管理员添加用户/更改用户密码
+
+请求方法: POST（需要access_token cookie鉴权）
+
+请求 URL： /privasea/createUser
+
+请求数据：
+
+```json
+{
+  "name": "tome",  // name相同，密码不同即为更改密码，先通过查询接口查看用户是否存在
+  "pass_word": "fdsaadsffds" // base64加密
+}
+```
+
+返回数据：
+
+```
+{
+  "code": "0000",
+  "msg": "Success"
+}
+
+{
+  "code": "1002",
+  "msg": "Interval Server Error"
+}
+
+```
+
+### 管理员删除用户
+
+请求方法: POST（需要access_token cookie鉴权）
+
+请求 URL： /privasea/delUser
+
+请求数据：
+
+```json
+{
+  "name": "tome"
+}
+```
+
+返回数据：
+
+```
+{
+  "code": "0000",
+  "msg": "Success"
+}
+
+{
+  "code": "1002",
+  "msg": "Interval Server Error"
+}
+
+```
+
+### 管理员查看自己
+
+请求方法: POST（需要access_token cookie鉴权）
+
+请求 URL： /privasea/userInfo
+
+请求数据：
+
+```json
+{
+  "name": "tome"
+}
+```
+
+返回数据：
+
+```
+{
+  "code": "0000",
+  "msg": "Success",
+  "data": 
+  {
+    "name":"tom", 
+    "pass_word":"fdsalkvxc" // base64加密
+  }  
+}
+
+{
+  "code": "1002",
+  "msg": "Interval Server Error" 
+}
+
+```
+
+### 管理员查看所有用户
+
+请求方法: POST（需要access_token cookie鉴权）
+
+请求 URL： /privasea/userList
+
+请求数据：
+
+```json
+{
+  "name": "tome",
+  "page":1,
+  "limit":10  
+}
+```
+
+返回数据：
+
+```
+{
+  "code": "0000",
+  "msg": "Success",
+  "data": 
+  {
+    "total":20,
+    "users": [
+        {
+            "name":"tom", 
+            "pass_word":"fdsalkvxc" // base64加密
+        }
+    ]
+  }  
+}
+
+{
+  "code": "1002",
+  "msg": "Interval Server Error"
+}
+
+```

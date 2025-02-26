@@ -71,7 +71,6 @@ const EventList: React.FC = () => {
                     content: '删除成功',
                 });
                 getNftListQuery(curChooise)
-
             })
             .catch(() => {
                 messageApi.open({
