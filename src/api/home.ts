@@ -47,7 +47,7 @@ export function fetchCreatNft(data: any) {
 export function fetchLogin(data?: any) {
   return request({
     url: `/privasea/login`,
-    method: "GET",
+    method: "POST",
     data
   });
 }

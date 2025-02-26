@@ -88,7 +88,7 @@ const AdminPage: React.FC = () => {
             {activeMenu === "settings" && "系统设置"} */}
           </div>
           <div className={styles.userInfo}>
-            <span className={styles.username}>{ userInfo  }</span>
+            <span className={styles.username}>{ userInfo || localStorage.getItem('user')  }</span>
             <div className={styles.logoutBtn} onClick={handleLogout}>
               退出
             </div>
