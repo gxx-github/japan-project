@@ -69,11 +69,11 @@ const HomePage = () => {
       )}
     >
         {contextHolder}
-        {
+        {/* {
            !judgeIsMobile()  &&  <div className={styles.float} onClick={()=>{
             history.push('/login')
           }}>Jump</div>
-        }
+        } */}
      
       <div className={styles.commonSection}>
         <div className={styles.tabs} >
@@ -102,18 +102,18 @@ const HomePage = () => {
                       !judgeIsMobile() &&   <span>
                       {
                         curChooise === 0 && <div className={styles.show}>
-                          距离开始还剩:
+                          開始まであと:
                           <TimerDom timer={item.start_timestamp} onZero={onZero}  ></TimerDom> 
                         </div>
                       }
                       {
                         curChooise === 1 && <div className={styles.show}>
-                          距离结束还有:
+                          終了まであと:
                           <TimerDom timer={item.end_timestamp} onZero={onZero}  ></TimerDom> 
                         </div>
                       }
                       {
-                        curChooise === 0 ? <div className={styles.button0} >活动未开始</div> : curChooise === 1 ? <div className={styles.button} onClick={() => {
+                        curChooise === 0 ? <div className={styles.button0} >まだ開始していません</div> : curChooise === 1 ? <div className={styles.button} onClick={() => {
                           if(account){
                             history.push('/toClaim')
 
@@ -122,7 +122,7 @@ const HomePage = () => {
 
                           }
                           setNftInfo(item)
-                        }}>活动进行中</div> : <div className={styles.button0} >活动已结束</div>
+                        }}>進行中</div> : <div className={styles.button0} >終了しました</div>
                       }
 
 
@@ -136,18 +136,18 @@ const HomePage = () => {
                       judgeIsMobile() &&   <span>
                       {
                         curChooise === 0 && <div className={styles.show}>
-                          距离开始还剩:
+                          開始まであと:
                           <TimerDom timer={item.start_timestamp} onZero={onZero}  ></TimerDom> 
                         </div>
                       }
                       {
                         curChooise === 1 && <div className={styles.show}>
-                          距离结束还有:
+                          終了まであと:
                           <TimerDom timer={item.end_timestamp} onZero={onZero}  ></TimerDom> 
                         </div>
                       }
                       {
-                        curChooise === 0 ? <div className={styles.button0} >活动未开始</div> : curChooise === 1 ? <div className={styles.button} onClick={() => {
+                        curChooise === 0 ? <div className={styles.button0} >まだ開始していません</div> : curChooise === 1 ? <div className={styles.button} onClick={() => {
                           if(account){
                             history.push('/toClaim')
 
@@ -156,7 +156,7 @@ const HomePage = () => {
 
                           }
                           setNftInfo(item)
-                        }}>活动进行中</div> : <div className={styles.button0} >活动已结束</div>
+                        }}>進行中</div> : <div className={styles.button0} >終了しました</div>
                       }
 
 

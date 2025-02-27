@@ -76,7 +76,7 @@ const Claim = () => {
             .then((res) => {
                 messageApi.open({
                     type: 'success',
-                    content: '领取成功',
+                    content: '受信完了',
                 });
                 const data = res.data;
                 setcurChooise(1)
@@ -128,7 +128,7 @@ const Claim = () => {
                 </div>
                 <div className={styles.content}>
                     <div className={styles.showText}>{NftInfo.nft_name}</div>
-                    <div className={claimAmount ? styles.showText1 : styles.showText0}><span>保有NFT数</span><br />
+                    <div className={claimAmount ? styles.showText1 : styles.showText0}><span>持っているNFT数</span><br />
                         {claimAmount}個
                     </div>
                     <div className={styles.showItem}>
@@ -151,10 +151,10 @@ const Claim = () => {
                             {
                                 !isClaimed ? <div className={styles.claimButton} onClick={() => handleClaim()}>申し込み</div> : <div className={styles.claimButtonDis} onClick={()=>{
                                     history.push('/')
-                                }}>已申请</div>
+                                }}>受け取り済み</div>
                             }
 
-                        </> : <div className={styles.claimButtonDis} >没有NFT可以领取</div>
+                        </> : <div className={styles.claimButtonDis} >受け取り資格無し</div>
                     }
 
                 </div>
