@@ -128,7 +128,7 @@ const Claim = () => {
                 </div>
                 <div className={styles.content}>
                     <div className={styles.showText}>{NftInfo.nft_name}</div>
-                    <div className={claimAmount ? styles.showText1 : styles.showText0}><span>持っているNFT数</span><br />
+                    <div className={claimAmount ? styles.showText1 : styles.showText0}><span>保有NFT数</span><br />
                         {claimAmount}個
                     </div>
                     <div className={styles.showItem}>
@@ -154,7 +154,7 @@ const Claim = () => {
                                 }}>受け取り済み</div>
                             }
 
-                        </> : <div className={styles.claimButtonDis} >受け取り資格無し</div>
+                        </> : <div className={styles.claimButtonDis} >申し込み資格がありません</div>
                     }
 
                 </div>

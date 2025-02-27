@@ -1,24 +1,16 @@
 import styles from "./index.less";
 import classnames from "classnames";
 import { judgeIsMobile } from "@/utils";
-import { useConnectModal } from "@rainbow-me/rainbowkit";
-import { useAccount } from "wagmi";
-import { useEffect } from "react";
 import show from '../../assets/img/Home/show.png'
 import show1 from '../../assets/img/Home/show1.png'
 import show2 from '../../assets/img/Home/show2.png'
 
 
 const Show = () => {
-    const { address: account } = useAccount();
-
-
-
-
     return (
         <section
             className={classnames(
-                
+
                 !judgeIsMobile() ? styles.mainContent : styles.mobile
             )}
         >
@@ -39,18 +31,20 @@ const Show = () => {
                 <div className={styles.item3}>
                     <div className={styles.tit1}>◆ ChromeやSafariなどブラウザからアクセスしている方</div>
                     <div className={styles.intro}>アプリをインストール済みの方</div>
-                    <div className={styles.button}>アプリを開いて連携する</div>
+                    <div className={styles.button} onClick={()=>{
+                        window.open('https://alphauwallet.page.link/?link=https://web.wallet.alpha-u.io/intro.html%3Furl%3Dhttps%3A%2F%2Fidmgr.market.alpha-u.io%2Fmauthz%3Fsession%3DDAwFxPUFEe-urwJCrBEAAg&apn=com.kddi.wallet&ibi=com.kddi.wallet&isi=6444401106')
+                    }} >アプリを開いて連携する</div>
                     <div className={styles.intro1}>一部のブラウザやアプリではデジタルウォレットアプリを利用できない場合があります。連携処理を続けるには、端末の標準ブラウザを利用してください。
                     </div>
                     <div className={styles.item3Con}>
-                    <div className={styles.intro}>アプリを未インストールの方</div>
-                    <div className={styles.showImg}>
-                    <img src={show2} alt="" className={styles.show2} />
-                    <img src={show1} alt="" className={styles.show1} />
+                        <div className={styles.intro}>アプリを未インストールの方</div>
+                        <div className={styles.showImg}>
+                            <img src={show2} alt="" className={styles.show2} />
+                            <img src={show1} alt="" className={styles.show1} />
 
-                    </div>
-                    <div className={styles.intro1}>αU Walletアプリをインストールしてください。
-                    </div>
+                        </div>
+                        <div className={styles.intro1}>αU Walletアプリをインストールしてください。
+                        </div>
                     </div>
                 </div>
 

@@ -122,7 +122,7 @@ const HomePage = () => {
 
                           }
                           setNftInfo(item)
-                        }}>進行中</div> : <div className={styles.button0} >終了しました</div>
+                        }}>申し込み中</div> : <div className={styles.button0} >終了しました</div>
                       }
 
 

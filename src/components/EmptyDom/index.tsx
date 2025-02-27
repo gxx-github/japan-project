@@ -35,7 +35,9 @@ export default function EmptyDom(props: Props) {
                 type === 1 && <>
                     <div className={styles.text}>現在申し込み受付が可能なプロジェクトはありません
                     </div>
-                    <div className={styles.button1}>
+                    <div className={styles.button1} onClick={()=>{
+                        setcurChooise(0)
+                    }}>
                         <img src={font} alt="" />
                     </div></>
             }
