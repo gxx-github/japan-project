@@ -102,13 +102,13 @@ const HomePage = () => {
                       !judgeIsMobile() &&   <span>
                       {
                         curChooise === 0 && <div className={styles.show}>
-                          開始まであと:
+                          開始まであと:<br/>
                           <TimerDom timer={item.start_timestamp} onZero={onZero}  ></TimerDom> 
                         </div>
                       }
                       {
                         curChooise === 1 && <div className={styles.show}>
-                          終了まであと:
+                          終了まであと:<br/>
                           <TimerDom timer={item.end_timestamp} onZero={onZero}  ></TimerDom> 
                         </div>
                       }
