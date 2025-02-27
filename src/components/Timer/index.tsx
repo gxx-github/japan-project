@@ -10,7 +10,7 @@ export const getSecondsOfDays = (days: number | string) => {
     return 60 * 60 * 24 * Number(days)
 }
 
-const formatTime = (d:number,h: number, m: number, s: number) => `${d}d:${h}h:${m}m`
+const formatTime = (d:number,h: number, m: number, s: number) => `${d}d`
 
 export const getDeltaTime = (time: number, to = Date.now()) => {
     const correctedTime = time * 1000
