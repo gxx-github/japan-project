@@ -4,6 +4,7 @@ import { judgeIsMobile } from "@/utils";
 import show from '../../assets/img/Home/show.png'
 import show1 from '../../assets/img/Home/show1.png'
 import show2 from '../../assets/img/Home/show2.png'
+import { history } from "umi";
 
 
 const Show = () => {
@@ -14,7 +15,13 @@ const Show = () => {
                 !judgeIsMobile() ? styles.mainContent : styles.mobile
             )}
         >
+           
             <div className={styles.commonSection}>
+            <div className={styles.back} onClick={() => {
+                    history.push('/list')
+                }} >
+                    {'<'} 戻る
+                </div>
                 <div className={styles.tit}>ウォレットを接続</div>
                 <div className={styles.intro}>ウォレット接続には、対応するウォレットアプリのインストールが必要です。詳しくはこちら</div>
                 <div className={styles.line}></div>
@@ -31,7 +38,7 @@ const Show = () => {
                 <div className={styles.item3}>
                     <div className={styles.tit1}>◆ ChromeやSafariなどブラウザからアクセスしている方</div>
                     <div className={styles.intro}>アプリをインストール済みの方</div>
-                    <div className={styles.button} onClick={()=>{
+                    <div className={styles.button} onClick={() => {
                         window.open('https://alphauwallet.page.link/?link=https://web.wallet.alpha-u.io/intro.html%3Furl%3Dhttps%3A%2F%2Fidmgr.market.alpha-u.io%2Fmauthz%3Fsession%3DDAwFxPUFEe-urwJCrBEAAg&apn=com.kddi.wallet&ibi=com.kddi.wallet&isi=6444401106')
                     }} >アプリを開いて連携する</div>
                     <div className={styles.intro1}>一部のブラウザやアプリではデジタルウォレットアプリを利用できない場合があります。連携処理を続けるには、端末の標準ブラウザを利用してください。

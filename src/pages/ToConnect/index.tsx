@@ -41,11 +41,16 @@ const ToConnect = () => {
         >
             <div className={styles.connectDom}>
                 <div className={styles.text} >
-                   <img src={textImg} alt="" />
+                    <img src={textImg} alt="" />
                 </div>
                 <div className={styles.jumpButton} onClick={judgeIsWallect}>
                     WALLET CONNECT<br />
                     <div>ウォレットを接続</div>
+                </div>
+                <div className={styles.back} onClick={()=>{
+                    history.push('/list')
+                }} >
+                {'<'} 戻る
                 </div>
 
             </div>

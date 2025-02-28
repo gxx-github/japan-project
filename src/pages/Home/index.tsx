@@ -22,9 +22,9 @@ interface ListItem {
 
 const HomePage = () => {
   const TabList = ['Upcoming', 'Live', 'Ended']
-  const { setNftInfo,curChooise, setcurChooise }: any = useContext(InfoContext);
-    const { address: account } = useAccount();
-    const [messageApi, contextHolder] = message.useMessage();
+  const { setNftInfo, curChooise, setcurChooise }: any = useContext(InfoContext);
+  const { address: account } = useAccount();
+  const [messageApi, contextHolder] = message.useMessage();
 
   const handleTab = (index: number) => {
     setcurChooise(index)
@@ -50,7 +50,7 @@ const HomePage = () => {
         messageApi.open({
           type: 'error',
           content: err.message,
-      });
+        });
       });
   }
   const onZero = () => {
@@ -70,7 +70,7 @@ const HomePage = () => {
         !judgeIsMobile() ? styles.mainContent : styles.mobile
       )}
     >
-        {contextHolder}
+      {contextHolder}
       <div className={styles.commonSection}>
         <div className={styles.tabs} >
           {
@@ -79,88 +79,85 @@ const HomePage = () => {
             })
           }
         </div>
-        <div  className={ curChooise===0 && showListData.length === 0 ? styles.content1 : styles.content }  >
+        <div className={styles.content}  >
           {
             showListData.length !== 0 ? showListData.map((item, index) => {
               return <div className={styles.itemDom} key={index} >
                 <div className={styles.leftDom} >
                   <img src={item.spend} alt="" />
-                  <div className={styles.start}>開始日時:
+                  <div className={styles.start}>
+                    <span>開始日時</span>
                     <span>{item.start_timestamp && moment(item.start_timestamp * 1000).format('YYYY-MM-DD HH:mm')}</span>
                   </div>
-                  <div className={styles.end} >終了日時:
+                  <div className={styles.end} >
+                    <span>終了日時</span>
                     <span>{item.end_timestamp && moment(item.end_timestamp * 1000).format('YYYY-MM-DD HH:mm')}</span></div>
                 </div>
                 <div className={styles.rightDom} >
                   <div className={styles.titDom} >
                     <div className={styles.tit}>{item.nft_name}</div>
-                    {
-                      !judgeIsMobile() &&   <span>
-                      {
-                        curChooise === 0 && <div className={styles.show}>
-                          開始まで：
-                          <TimerDom timer={item.start_timestamp} onZero={onZero} shouwDay={true} ></TimerDom> 
-                        </div>
-                      }
-                      {
-                        curChooise === 1 && <div className={styles.show}>
-                          残り:
-                          <TimerDom timer={item.end_timestamp} onZero={onZero} shouwDay={true}  ></TimerDom> 
-                        </div>
-                      }
-                      {
-                        curChooise === 0 ? <div className={styles.button0} >まだ開始していません</div> : curChooise === 1 ? <div className={styles.button} onClick={() => {
-                          if(account){
-                            history.push('/toClaim')
-
-                          }else{
-                            history.push('/toConnect')
-
-                          }
-                          setNftInfo(item)
-                        }}>申し込み中</div> : <div className={styles.button0} >終了しました</div>
-                      }
-
-
-                    </span>
-                    }
-                  
                   </div>
                   <div className={styles.des} >{item.info}</div>
+                  {/* 移动端 */}
                   <div className={styles.timer}>
-                  {
-                      judgeIsMobile() &&   <span>
-                      {
-                        curChooise === 0 && <div className={styles.show}>
-                          開始まで：
-                          <TimerDom timer={item.start_timestamp} onZero={onZero} shouwDay={true} ></TimerDom> 
-                        </div>
-                      }
-                      {
-                        curChooise === 1 && <div className={styles.show}>
-                          残り:
-                          <TimerDom timer={item.end_timestamp} onZero={onZero} shouwDay={true} ></TimerDom> 
-                        </div>
-                      }
-                      {
-                        curChooise === 0 ? <div className={styles.button0} >まだ開始していません</div> : curChooise === 1 ? <div className={styles.button} onClick={() => {
-                          if(account){
-                            history.push('/toClaim')
+                    {
+                      judgeIsMobile() && <span>
+                        {
+                          curChooise === 0 && <div className={styles.show}>
+                            開始まで：
+                            <TimerDom timer={item.start_timestamp} onZero={onZero} shouwDay={true} ></TimerDom>
+                          </div>
+                        }
+                        {
+                          curChooise === 1 && <div className={styles.show}>
+                            残り:
+                            <TimerDom timer={item.end_timestamp} onZero={onZero} shouwDay={true} ></TimerDom>
+                          </div>
+                        }
+                        {
+                          curChooise === 0 ? <div className={styles.button0} >まだ開始していません</div> : curChooise === 1 ? <div className={styles.button} onClick={() => {
+                            if (account) {
+                              history.push('/toClaim')
 
-                          }else{
-                            history.push('/toConnect')
+                            } else {
+                              history.push('/toConnect')
 
-                          }
-                          setNftInfo(item)
-                        }}>申し込み中</div> : <div className={styles.button0} >終了しました</div>
-                      }
+                            }
+                            setNftInfo(item)
+                          }}>申し込み中</div> : <div className={styles.button0} >終了しました</div>
+                        }
 
 
-                    </span>
+                      </span>
                     }
                   </div>
-                
+
                 </div>
+                {
+                  !judgeIsMobile() &&
+                  <div className={styles.buttonDom} >
+                    {
+                      curChooise === 0 ? <div className={styles.button0} >まもなく申し込み開始</div> : curChooise === 1 ? <div className={styles.button} onClick={() => {
+                        if (account) {
+                          history.push('/toClaim')
+
+                        } else {
+                          history.push('/toConnect')
+
+                        }
+                        setNftInfo(item)
+                      }}>申し込み</div> : <div className={styles.button0} >申し込み終了</div>
+                    }
+                    <>
+                      {
+                        curChooise !== 2 && <div className={styles.show}>
+                          残り：
+                          <TimerDom timer={item.start_timestamp} onZero={onZero} shouwDay={true} ></TimerDom>
+                        </div>
+                      }
+                    </>
+                  </div>
+                }
               </div>
             })
               : <EmptyDom type={curChooise} ></EmptyDom>

@@ -31,7 +31,8 @@
       color: #BB2ADA;
       background: #fff;
       margin-right: 8px;
-      &:last-child{
+
+      &:last-child {
         margin-right: 0;
       }
     }
@@ -131,17 +132,20 @@
         word-wrap: break-word;
         margin-bottom: 12px;
       }
-      .timer{
-        >span{
+
+      .timer {
+        >span {
           display: flex;
           justify-content: space-between;
           align-items: center;
         }
-        .show{
+
+        .show {
           font-size: 14px;
           color: #F71111;
         }
-        .button0{
+
+        .button0 {
           width: 135px;
           height: 43px;
           text-align: center;
@@ -152,6 +156,7 @@
           cursor: no-drop;
           border-radius: 8px;
         }
+
         .button {
           width: 135px;
           height: 43px;
@@ -180,20 +185,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
-.float{
-  position: absolute;
-  right: 0;
-  top: 200px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: #bb2a2a;
-  cursor: pointer;
-  font-size: 12px;
-  text-align: center;
-  line-height: 50px;
-  
-}
+
+  .float {
+    position: absolute;
+    right: 0;
+    top: 200px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #bb2a2a;
+    cursor: pointer;
+    font-size: 12px;
+    text-align: center;
+    line-height: 50px;
+
+  }
+
   .commonSection {
     width: @primary-screen-width;
     height: @primary-screen-height;
@@ -218,6 +225,7 @@
       color: #BB2ADA;
       background: #fff;
       margin-right: 8px;
+      border-radius: 6px 6px 0 0;
     }
 
     .active {
@@ -233,6 +241,7 @@
     padding: 0 50px 50px 50px;
     color: #000;
   }
+
   .content1 {
     flex: 1;
     overflow-y: scroll;
@@ -243,11 +252,12 @@
 
   .itemDom {
     display: flex;
-    padding: 50px;
+    padding: 50px 0;
     border-bottom: 1px solid #000;
 
     .leftDom {
       margin-right: 50px;
+      width: 204px;
 
       img {
         width: 204px;
@@ -256,34 +266,40 @@
       }
 
       .start {
-        font-size: 16px;
+        color: #424242;
+        font-size: 12px;
         margin-bottom: 6px;
-
-        >span {
-          padding-left: 8px;
-        }
+display: flex;
+align-items: center;
+justify-content: space-between;
+       
       }
 
       .end {
-        font-size: 16px;
+        color: #424242;
 
-        >span {
-          padding-left: 8px;
-        }
+        font-size: 12px;
+        display: flex;
+align-items: center;
+justify-content: space-between;
+
+       
       }
     }
 
     .rightDom {
       flex: 1;
-
+padding-right: 50px;
       .titDom {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
+        // display: flex;
+        // justify-content: space-between;
+        // align-items: center;
+        margin-bottom: 10px;
 
         .tit {
-          font-size: 32px;
+          font-size: 18px;
+          color: #313131;
+          font-weight: bold;
         }
 
         >span {
@@ -291,40 +307,51 @@
           align-items: center;
         }
 
-        .show {
-          font-size: 14px;
-          color: #F71111;
-          margin-right: 8px;
-        }
-
-        .button0 {
-          width: 180px;
-          height: 43px;
-          text-align: center;
-          line-height: 43px;
-          font-size: 15px;
-          background: rgba(255, 255, 255, 0.6);
-          color: #B0B0B0;
-          cursor: no-drop;
-        }
-
-        .button {
-          width: 180px;
-          height: 43px;
-          text-align: center;
-          line-height: 43px;
-          font-size: 15px;
-          background: #564083;
-          color: #fff;
-          cursor: pointer;
-        }
-
       }
 
       .des {
-        font-size: 16px;
+        font-size: 12px;
+        color: #424242;
+        line-height: 20px;
+      }
+    }
+
+    .buttonDom {
+      width: 211px;
+      height: inherit;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .button0 {
+        width: 211px;
+        height: 46px;
+        text-align: center;
+        line-height: 46px;
+        font-size: 15px;
+        background: #CACACA;
+        color: #969696;
+        cursor: no-drop;
+      }
+
+      .button {
+        width: 211px;
+        height: 46px;
+        text-align: center;
+        line-height: 46px;
+        font-size: 15px;
+        background: #594081;
+        color: #fff;
+        cursor: pointer;
+      }
+
+      .show {
+        height: 30px;
+        font-size: 14px;
+        color: #F71111;
+        line-height: 30px;
       }
     }
   }
 }
-
