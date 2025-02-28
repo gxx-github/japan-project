@@ -71,7 +71,7 @@ export const TimerDom = ({
         // eslint-disable-next-line
     }, [time])
     if(shouwDay){
-        return <span>{getDays(time)}</span>
+        return <span>{getDays(time)}日</span>
     }
     return <span>{toDeltaTimer(time)}</span>
 }

@@ -42,6 +42,8 @@ const HomePage = () => {
         const data = res.data;
         const { nft } = data
         setshowListData(nft)
+        // setshowListData([])
+
       })
       .catch((err) => {
         setshowListData([])
@@ -65,16 +67,10 @@ const HomePage = () => {
   return (
     <section
       className={classnames(
-        !judgeIsMobile() ?  styles.mainContent : styles.mobile
+        !judgeIsMobile() ? styles.mainContent : styles.mobile
       )}
     >
         {contextHolder}
-        {/* {
-           !judgeIsMobile()  &&  <div className={styles.float} onClick={()=>{
-            history.push('/login')
-          }}>Jump</div>
-        } */}
-     
       <div className={styles.commonSection}>
         <div className={styles.tabs} >
           {
@@ -83,7 +79,7 @@ const HomePage = () => {
             })
           }
         </div>
-        <div className={styles.content} >
+        <div  className={ curChooise===0 && showListData.length === 0 ? styles.content1 : styles.content }  >
           {
             showListData.length !== 0 ? showListData.map((item, index) => {
               return <div className={styles.itemDom} key={index} >
@@ -102,14 +98,14 @@ const HomePage = () => {
                       !judgeIsMobile() &&   <span>
                       {
                         curChooise === 0 && <div className={styles.show}>
-                          開始まであと:<br/>
-                          <TimerDom timer={item.start_timestamp} onZero={onZero}  ></TimerDom> 
+                          開始まで：
+                          <TimerDom timer={item.start_timestamp} onZero={onZero} shouwDay={true} ></TimerDom> 
                         </div>
                       }
                       {
                         curChooise === 1 && <div className={styles.show}>
-                          終了まであと:<br/>
-                          <TimerDom timer={item.end_timestamp} onZero={onZero}  ></TimerDom> 
+                          残り:
+                          <TimerDom timer={item.end_timestamp} onZero={onZero} shouwDay={true}  ></TimerDom> 
                         </div>
                       }
                       {
@@ -136,14 +132,14 @@ const HomePage = () => {
                       judgeIsMobile() &&   <span>
                       {
                         curChooise === 0 && <div className={styles.show}>
-                          開始まであと:
-                          <TimerDom timer={item.start_timestamp} onZero={onZero}  ></TimerDom> 
+                          開始まで：
+                          <TimerDom timer={item.start_timestamp} onZero={onZero} shouwDay={true} ></TimerDom> 
                         </div>
                       }
                       {
                         curChooise === 1 && <div className={styles.show}>
-                          終了まであと:
-                          <TimerDom timer={item.end_timestamp} onZero={onZero}  ></TimerDom> 
+                          残り:
+                          <TimerDom timer={item.end_timestamp} onZero={onZero} shouwDay={true} ></TimerDom> 
                         </div>
                       }
                       {
@@ -156,7 +152,7 @@ const HomePage = () => {
 
                           }
                           setNftInfo(item)
-                        }}>進行中</div> : <div className={styles.button0} >終了しました</div>
+                        }}>申し込み中</div> : <div className={styles.button0} >終了しました</div>
                       }
 
 
