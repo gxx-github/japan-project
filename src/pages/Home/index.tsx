@@ -151,9 +151,15 @@ const HomePage = () => {
                     }
                     <>
                       {
-                        curChooise !== 2 && <div className={styles.show}>
+                        curChooise === 0 && <div className={styles.show}>
                           残り：
                           <TimerDom timer={item.start_timestamp} onZero={onZero} shouwDay={true} ></TimerDom>
+                        </div>
+                      }
+                      {
+                        curChooise === 1 && <div className={styles.show}>
+                          残り：
+                          <TimerDom timer={item.end_timestamp} onZero={onZero} shouwDay={true} ></TimerDom>
                         </div>
                       }
                     </>

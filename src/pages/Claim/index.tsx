@@ -67,6 +67,14 @@ const Claim = () => {
     }
     const handleClaim = () => {
         setcurChooise(1)
+        if(!inputValue){
+            messageApi.open({
+                type: 'error',
+                content:  'エアドロップを受け取るウォレットアドレスを入力してください。',
+            });
+          
+            return ;
+        }
         const Params = {
             "nft_id": NftInfo.id, // nft id
             "address": account, // 连接地址，默认
@@ -101,9 +109,6 @@ const Claim = () => {
         if (!account) {
             history.push('/list')
         }
-        // if (account) {
-        //     setinputValue(account)
-        // }
         if (!NftInfo || Object.keys(NftInfo).length === 0 && !account && !window.ethereum) {
             history.push('/toShow')
         }
@@ -167,9 +172,7 @@ const Claim = () => {
                         {
                             claimAmount !== 0 ? <>
                                 {
-                                    !isClaimed ? <div className={styles.claimButton} onClick={() => handleClaim()}>申し込み</div> : <div className={styles.claimButtonDis} onClick={() => {
-                                        history.push('/')
-                                    }}>受け取り済み</div>
+                                    !isClaimed ? <div className={styles.claimButton} onClick={() => handleClaim()}>申し込み</div> : <div className={styles.claimButtonDis}  >受け取り済み</div>
                                 }
 
                             </> : <div className={styles.claimButtonDis} >申し込み資格がありません</div>
