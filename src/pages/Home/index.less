@@ -31,6 +31,7 @@
       color: #BB2ADA;
       background: #fff;
       margin-right: 8px;
+      border-radius: 6px 6px 0 0;
 
       &:last-child {
         margin-right: 0;
@@ -57,39 +58,46 @@
 
     .leftDom {
       margin-bottom: 16px;
-
+text-align: center;
       img {
         width: 204px;
         height: 86px;
-        margin-bottom: 12px;
+        // margin-bottom: 12px;
+        margin: 0 auto 12px;
       }
-
       .start {
-        font-size: 16px;
+        color: #424242;
+        font-size: 12px;
         margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
 
-        >span {
-          padding-left: 8px;
-        }
       }
 
       .end {
-        font-size: 16px;
+        color: #424242;
 
-        >span {
-          padding-left: 8px;
-        }
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+
       }
+
+
     }
 
     .rightDom {
       flex: 1;
 
       .titDom {
-        margin-bottom: 20px;
+        margin-bottom: 10px;
 
         .tit {
-          font-size: 32px;
+          font-size: 24px;
+          font-weight: bold;
         }
 
         >span {
@@ -128,9 +136,10 @@
       }
 
       .des {
-        font-size: 16px;
+        font-size: 12px;
         word-wrap: break-word;
         margin-bottom: 12px;
+        line-height: 16px;
       }
 
       .timer {
@@ -269,10 +278,10 @@
         color: #424242;
         font-size: 12px;
         margin-bottom: 6px;
-display: flex;
-align-items: center;
-justify-content: space-between;
-       
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
       }
 
       .end {
@@ -280,16 +289,17 @@ justify-content: space-between;
 
         font-size: 12px;
         display: flex;
-align-items: center;
-justify-content: space-between;
+        align-items: center;
+        justify-content: space-between;
 
-       
+
       }
     }
 
     .rightDom {
       flex: 1;
-padding-right: 50px;
+      padding-right: 50px;
+
       .titDom {
         // display: flex;
         // justify-content: space-between;

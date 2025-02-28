@@ -139,11 +139,14 @@ const Claim = () => {
                         <div className={styles.inner1}>{NftInfo.chain||''}</div>
                     </div>
                     <div className={styles.buttons}>
-                       <div className={styles.back} onClick={()=>{
-                        history.push('/list')
-                       }}>
-                       戻る
-                       </div>
+                        {
+                            !judgeIsMobile() &&   <div className={styles.back} onClick={()=>{
+                                history.push('/list')
+                               }}>
+                               戻る
+                               </div>
+                        }
+                     
                        {
                         claimAmount !== 0 ? <>
                             {
