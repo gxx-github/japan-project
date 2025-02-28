@@ -67,13 +67,13 @@ const Claim = () => {
     }
     const handleClaim = () => {
         setcurChooise(1)
-        if(!inputValue){
+        if (!inputValue) {
             messageApi.open({
                 type: 'error',
-                content:  'エアドロップを受け取るウォレットアドレスを入力してください。',
+                content: 'エアドロップを受け取るウォレットアドレスを入力してください。',
             });
-          
-            return ;
+
+            return;
         }
         const Params = {
             "nft_id": NftInfo.id, // nft id
@@ -90,6 +90,8 @@ const Claim = () => {
                 });
                 const data = res.data;
                 setcurChooise(1)
+                quertUserNftInfo()
+
             })
             .catch((err) => {
                 // setclaimAmount(0)
