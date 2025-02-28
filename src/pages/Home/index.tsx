@@ -36,7 +36,7 @@ const HomePage = () => {
     const Params = {
       "state": state, // 0 未开始 1 进行中 2 已结束
       "page": 1,
-      "limit": 50
+      "limit": 100
     }
     fetchGetNftList(Params)
       .then((res) => {
