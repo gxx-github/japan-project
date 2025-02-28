@@ -2,12 +2,13 @@ import styles from "./index.less";
 import classnames from "classnames";
 import { judgeIsMobile } from "@/utils";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
-import { useAccount } from "wagmi";
+import { useAccount, useDisconnect } from "wagmi";
 import { useContext, useEffect, useState, type ChangeEvent } from "react";
 import { fetchToClaim, fetchUserClaimInfo } from "@/api/home";
 import { InfoContext } from "@/components/InfoProvider";
 import { history } from "umi";
 import { message } from "antd";
+import { formatEllipsis } from "@/utils/number";
 
 
 
@@ -20,6 +21,7 @@ const Claim = () => {
     const { setcurChooise }: any = useContext(InfoContext);
     const [messageApi, contextHolder] = message.useMessage();
     const [isClaimed, setisClaimed] = useState(false)
+    const { disconnect } = useDisconnect();
 
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -90,11 +92,14 @@ const Claim = () => {
 
             });
     }
-
+    const handleDis = () => {
+        disconnect()
+        // history.push('/list')
+    }
     useEffect(() => {
         quertUserNftInfo()
         if (!account) {
-            history.push('/toConnect')
+            history.push('/list')
         }
         // if (account) {
         //     setinputValue(account)
@@ -118,6 +123,18 @@ const Claim = () => {
                 !judgeIsMobile() ? styles.mainContent : styles.mobile
             )}
         >
+            {
+                !judgeIsMobile() && account && <div className={styles.walletDom} >
+                    <div className={styles.text}>{formatEllipsis(account)}</div>
+                    <div className={styles.close}></div>
+                    <div className={styles.dis} onClick={() => {
+                        handleDis()
+                    }} >
+                        <span>ウォレット接続を解除する</span>
+                    </div>
+
+                </div>
+            }
             {contextHolder}
             <div className={styles.commonSection}>
                 <div className={styles.innerTop}>
@@ -136,29 +153,29 @@ const Claim = () => {
                     </div>
                     <div className={styles.showItem}>
                         <div className={styles.label}>チェーン</div>
-                        <div className={styles.inner1}>{NftInfo.chain||''}</div>
+                        <div className={styles.inner1}>{NftInfo.chain || ''}</div>
                     </div>
                     <div className={styles.buttons}>
                         {
-                            !judgeIsMobile() &&   <div className={styles.back} onClick={()=>{
+                            !judgeIsMobile() && <div className={styles.back} onClick={() => {
                                 history.push('/list')
-                               }}>
-                               戻る
-                               </div>
+                            }}>
+                                戻る
+                            </div>
                         }
-                     
-                       {
-                        claimAmount !== 0 ? <>
-                            {
-                                !isClaimed ? <div className={styles.claimButton} onClick={() => handleClaim()}>申し込み</div> : <div className={styles.claimButtonDis} onClick={()=>{
-                                    history.push('/')
-                                }}>受け取り済み</div>
-                            }
 
-                        </> : <div className={styles.claimButtonDis} >申し込み資格がありません</div>
-                    }
+                        {
+                            claimAmount !== 0 ? <>
+                                {
+                                    !isClaimed ? <div className={styles.claimButton} onClick={() => handleClaim()}>申し込み</div> : <div className={styles.claimButtonDis} onClick={() => {
+                                        history.push('/')
+                                    }}>受け取り済み</div>
+                                }
+
+                            </> : <div className={styles.claimButtonDis} >申し込み資格がありません</div>
+                        }
                     </div>
-                   
+
 
                 </div>
             </div>

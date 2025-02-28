@@ -8,6 +8,61 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  .walletDom{
+    position: absolute;
+    width: 137px;
+    height: 30px;
+    top: 50px;
+    right: 50px;
+    background: url(../../assets/img/common/border.png);
+    background-size: 100% 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    cursor: pointer;
+    .text{
+      color: #fff;
+      font-size: 12px;
+    }
+    .close{
+      width: 9px;
+      height: 9px;
+      background: url(../../assets/img/common/close.png);
+      background-size: 100% 100%;
+    }
+    &:hover{
+      .dis{
+        opacity: 1;
+      }
+    }
+    .dis{
+      opacity: 0;
+      width: 160px;
+      height: 30px;
+      background: #5C3E8C;
+      color: #fff;
+      text-align: center;
+      align-items: center;
+      font-size: 12px;
+      position: absolute;
+      top: 33px;
+      right: 0;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     
+      span{
+        border-bottom: 1px solid #fff;
+        font-size: 12px;
+        display: inline-block;
+        margin: auto;
+      }
+
+    }
+
+  }
   .commonSection {
     width: 850px;
     height: 692px;
