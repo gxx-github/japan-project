@@ -76,13 +76,10 @@ const Claim = () => {
             .then((res) => {
                 messageApi.open({
                     type: 'success',
-                    content: '受信完了',
+                    content: '申請成功',
                 });
                 const data = res.data;
                 setcurChooise(1)
-                setTimeout(() => {
-                    history.push('/')
-                }, 3000);
             })
             .catch((err) => {
                 // setclaimAmount(0)
@@ -141,12 +138,13 @@ const Claim = () => {
                         <div className={styles.label}>チェーン</div>
                         <div className={styles.inner1}>{NftInfo.chain||''}</div>
                     </div>
-                    {/* {
-                        claimAmount!==0 && !isClaimed ? <div className={styles.claimButton} onClick={() => handleClaim()}>申し込み</div> : 
-                    
-                        <div className={styles.claimButtonDis} >申し込み資格がありません</div>
-                    } */}
-                    {
+                    <div className={styles.buttons}>
+                       <div className={styles.back} onClick={()=>{
+                        history.push('/list')
+                       }}>
+                       戻る
+                       </div>
+                       {
                         claimAmount !== 0 ? <>
                             {
                                 !isClaimed ? <div className={styles.claimButton} onClick={() => handleClaim()}>申し込み</div> : <div className={styles.claimButtonDis} onClick={()=>{
@@ -156,6 +154,8 @@ const Claim = () => {
 
                         </> : <div className={styles.claimButtonDis} >申し込み資格がありません</div>
                     }
+                    </div>
+                   
 
                 </div>
             </div>
