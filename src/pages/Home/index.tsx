@@ -27,6 +27,7 @@ const HomePage = () => {
   const [messageApi, contextHolder] = message.useMessage();
 
   const handleTab = (index: number) => {
+    setshowListData([])
     setcurChooise(index)
   }
   const [showListData, setshowListData] = useState([] as ListItem[])
