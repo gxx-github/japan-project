@@ -86,13 +86,19 @@ const HomePage = () => {
               return <div className={styles.itemDom} key={index} >
                 <div className={styles.leftDom} >
                   <img src={item.spend} alt="" />
-                  <div className={styles.start}>
-                    <span>開始日時</span>
-                    <span>{item.start_timestamp && moment(item.start_timestamp * 1000).format('YYYY-MM-DD HH:mm')}</span>
-                  </div>
-                  <div className={styles.end} >
-                    <span>終了日時</span>
-                    <span>{item.end_timestamp && moment(item.end_timestamp * 1000).format('YYYY-MM-DD HH:mm')}</span></div>
+                  {
+                    !judgeIsMobile() && <>
+                      <div className={styles.start}>
+                        <span>開始日時</span>
+                        <span>{item.start_timestamp && moment(item.start_timestamp * 1000).format('YYYY-MM-DD HH:mm')}</span>
+                      </div>
+                      <div className={styles.end} >
+                        <span>終了日時</span>
+                        <span>{item.end_timestamp && moment(item.end_timestamp * 1000).format('YYYY-MM-DD HH:mm')}</span>
+                      </div>
+                    </>
+                  }
+
                 </div>
                 <div className={styles.rightDom} >
                   <div className={styles.titDom} >
@@ -100,38 +106,53 @@ const HomePage = () => {
                   </div>
                   <div className={styles.des} >{item.info}</div>
                   {/* 移动端 */}
-                  <div className={styles.timer}>
-                    {
-                      judgeIsMobile() && <span>
-                        {
-                          curChooise === 0 && <div className={styles.show}>
-                            開始まで：
-                            <TimerDom timer={item.start_timestamp} onZero={onZero} shouwDay={true} ></TimerDom>
-                          </div>
-                        }
-                        {
-                          curChooise === 1 && <div className={styles.show}>
-                            残り:
-                            <TimerDom timer={item.end_timestamp} onZero={onZero} shouwDay={true} ></TimerDom>
-                          </div>
-                        }
-                        {
-                          curChooise === 0 ? <div className={styles.button0} >まだ開始していません</div> : curChooise === 1 ? <div className={styles.button} onClick={() => {
-                            if (account) {
-                              history.push('/toClaim')
+                  {
+                    judgeIsMobile() && <>
+                      <>
+                        <div className={styles.start}>
+                          <span>開始日時</span>
+                          <span>{item.start_timestamp && moment(item.start_timestamp * 1000).format('YYYY-MM-DD HH:mm')}</span>
+                        </div>
+                        <div className={styles.end} >
+                          <span>終了日時</span>
+                          <span>{item.end_timestamp && moment(item.end_timestamp * 1000).format('YYYY-MM-DD HH:mm')}</span>
+                        </div>
+                      </>
+                      <div className={styles.timer}>
+                        <>
 
-                            } else {
-                              history.push('/toConnect')
+                          {
+                            curChooise === 0 ? <div className={styles.button0} >まだ開始していません</div> : curChooise === 1 ? <div className={styles.button} onClick={() => {
+                              if (account) {
+                                history.push('/toClaim')
 
-                            }
-                            setNftInfo(item)
-                          }}>申し込み中</div> : <div className={styles.button0} >終了しました</div>
-                        }
+                              } else {
+                                history.push('/toConnect')
+
+                              }
+                              setNftInfo(item)
+                            }}>申し込み中</div> : <div className={styles.button0} >終了しました</div>
+                          }
+
+                          {
+                            curChooise === 0 && <div className={styles.show}>
+                              開始まで：
+                              <TimerDom timer={item.start_timestamp} onZero={onZero} shouwDay={true} ></TimerDom>
+                            </div>
+                          }
+                          {
+                            curChooise === 1 && <div className={styles.show}>
+                              残り:
+                              <TimerDom timer={item.end_timestamp} onZero={onZero} shouwDay={true} ></TimerDom>
+                            </div>
+                          }
 
 
-                      </span>
-                    }
-                  </div>
+                        </>
+                      </div>
+                    </>
+                  }
+
 
                 </div>
                 {

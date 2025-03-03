@@ -12,25 +12,25 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 50px 16px;
+    padding: 30px;
   }
 
   .tabs {
     display: flex;
-    height: 45px;
-    margin-bottom: 20px;
+    height: 32px;
+    margin-bottom: 2px;
 
     >div {
       width: 160px;
-      height: 45px;
-      font-size: 14px;
+      height: 32px;
+      font-size: 12px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       color: #BB2ADA;
       background: #fff;
-      margin-right: 8px;
+      margin-right: 2px;
       border-radius: 6px 6px 0 0;
 
       &:last-child {
@@ -48,7 +48,7 @@
     flex: 1;
     overflow-y: scroll;
     background: rgba(255, 255, 255, 0.8);
-    padding: 0 16px 0px 16px;
+    padding: 0 16px 20px 16px;
     color: #000;
   }
 
@@ -58,12 +58,75 @@
 
     .leftDom {
       margin-bottom: 16px;
-text-align: center;
+      text-align: center;
+
       img {
         width: 204px;
         height: 86px;
-        // margin-bottom: 12px;
-        margin: 0 auto 12px;
+        margin: 0 auto ;
+      }
+
+     
+
+
+    }
+
+    .rightDom {
+      flex: 1;
+      .titDom {
+        margin-bottom: 10px;
+        .tit {
+          font-size: 18px;
+          font-weight: 600;
+          text-align: center;
+        }
+      }
+
+      .des {
+        font-size: 10px;
+        word-wrap: break-word;
+        margin-bottom: 12px;
+        line-height: 14px;
+        color: #424242;
+      }
+
+      .timer {
+        >span {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .show {
+          font-size: 12px;
+          color: #F71111;
+          text-align: center;
+        }
+
+        .button0 {
+          width: 211px;
+          height: 36px;
+          text-align: center;
+          line-height: 36px;
+          font-size: 13px;
+          background: #CACACA;
+          color: #969696;
+          cursor: no-drop;
+          margin: 15px auto 8px;
+        }
+
+        .button {
+          width: 211px;
+          height: 36px;
+          text-align: center;
+          line-height: 36px;
+          font-size: 13px;
+          background: #564083;
+          color: #fff;
+          cursor: pointer;
+          margin: 15px auto 8px;
+
+        }
       }
       .start {
         color: #424242;
@@ -77,7 +140,6 @@ text-align: center;
 
       .end {
         color: #424242;
-
         font-size: 12px;
         display: flex;
         align-items: center;
@@ -85,103 +147,15 @@ text-align: center;
 
 
       }
-
-
-    }
-
-    .rightDom {
-      flex: 1;
-
-      .titDom {
-        margin-bottom: 10px;
-
-        .tit {
-          font-size: 24px;
-          font-weight: bold;
-        }
-
-        >span {
-          display: flex;
-          align-items: center;
-        }
-
-        .show {
-          font-size: 14px;
-          color: #F71111;
-          margin-right: 8px;
-        }
-
-        .button0 {
-          width: 135px;
-          height: 43px;
-          text-align: center;
-          line-height: 43px;
-          font-size: 15px;
-          background: rgba(255, 255, 255, 0.6);
-          color: #B0B0B0;
-          cursor: no-drop;
-        }
-
-        .button {
-          width: 135px;
-          height: 43px;
-          text-align: center;
-          line-height: 43px;
-          font-size: 15px;
-          background: #564083;
-          color: #fff;
-          cursor: pointer;
-        }
-
-      }
-
-      .des {
-        font-size: 12px;
-        word-wrap: break-word;
-        margin-bottom: 12px;
-        line-height: 16px;
-      }
-
-      .timer {
-        >span {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
-
-        .show {
-          font-size: 14px;
-          color: #F71111;
-        }
-
-        .button0 {
-          width: 135px;
-          height: 43px;
-          text-align: center;
-          line-height: 43px;
-          font-size: 12px;
-          background: rgba(255, 255, 255, 0.6);
-          color: #B0B0B0;
-          cursor: no-drop;
-          border-radius: 8px;
-        }
-
-        .button {
-          width: 135px;
-          height: 43px;
-          text-align: center;
-          line-height: 43px;
-          font-size: 12px;
-          background: #564083;
-          color: #fff;
-          cursor: pointer;
-          border-radius: 8px;
-
-        }
-      }
     }
   }
 }
+
+
+
+
+
+
 
 .mainContent {
   position: relative;
