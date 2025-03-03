@@ -179,11 +179,31 @@ const Claim = () => {
 
                             </> : <div className={styles.claimButtonDis} >申し込み資格がありません</div>
                         }
+
+                        {
+                            judgeIsMobile() && <div className={styles.claimButtonDisBack} onClick={() => {
+                                history.push('/list')
+                            }}>
+                                戻る
+                            </div>
+                        }
                     </div>
 
 
                 </div>
             </div>
+            {
+                judgeIsMobile() && account && <div className={styles.walletDom} >
+                    <div className={styles.text}>{formatEllipsis(account)}</div>
+                    <div className={styles.close}></div>
+                    <div className={styles.dis} onClick={() => {
+                        handleDis()
+                    }} >
+                        <span>ウォレット接続を解除する</span>
+                    </div>
+
+                </div>
+            }
         </section>
     );
 };

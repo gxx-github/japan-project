@@ -1,6 +1,7 @@
 import styles from "./index.less";
 import { useContext, useEffect } from "react";
 import font from '../../assets/img/Home/emptyFont.png';
+import font_h5 from '../../assets/img/Home/font_h5.png';
 import font1 from '../../assets/img/Home/font1.png';
 import classnames from "classnames";
 import { judgeIsMobile } from "@/utils";
@@ -39,7 +40,7 @@ export default function EmptyDom(props: Props) {
                     <div className={styles.button1} onClick={()=>{
                         setcurChooise(0)
                     }}>
-                        <img src={font} alt="" />
+                        <img src={ judgeIsMobile() ? font_h5 : font} alt="" />
                     </div></>
             }
             {

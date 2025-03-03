@@ -105,9 +105,10 @@
   overflow-y: scroll;
   .commonSection{
     width: 100%;
-    height: 100%;
-    overflow-y: scroll;
-  padding: 16px;
+    height: fit-content;
+    // height: 100%;
+    // overflow-y: scroll;
+  padding: 32px 16px;
 
   }
   .tit {
@@ -115,16 +116,37 @@
     margin-bottom: 8px;
     height: auto;
     line-height: 30px;
+    font-weight: 600;
   }
+
   .tit1 {
     font-size: 14px;
     margin-bottom: 8px;
     height: auto;
     line-height: 21px;
+    font-weight: 600;
+  }
+  .intro{
+    font-size: 12px;
+    line-height: 18px;
+  }
+  .button{
+    width: fit-content;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 30px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 14px;
+    background: linear-gradient(to right, #BB5DF8, #4FEAFF);
+    margin: 10px 0;
   }
   .item3{
     position: relative;
     .item3Con{
+      .intro{
+        padding-top: 30px
+      }
       position: relative;
       left: 0;
       top: 0;
@@ -139,5 +161,8 @@
   }
   .intro1{
     width:300px;
+    font-size: 11px;
+    color: #000;
+    opacity: 0.5;
    }
 }

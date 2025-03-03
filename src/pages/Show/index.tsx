@@ -15,18 +15,21 @@ const Show = () => {
                 !judgeIsMobile() ? styles.mainContent : styles.mobile
             )}
         >
-           
+
             <div className={styles.commonSection}>
-            <div className={styles.back} onClick={() => {
-                    history.push('/list')
-                }} >
-                    {'<'} 戻る
-                </div>
-                <div className={styles.tit}>ウォレットを接続</div>
+                {
+                    !judgeIsMobile() && <div className={styles.back} onClick={() => {
+                        history.push('/list')
+                    }} >
+                        {'<'} 戻る
+                    </div>
+                }
+
+                <div className={styles.tit}>◆ ウォレットを接続</div>
                 <div className={styles.intro}>ウォレット接続には、対応するウォレットアプリのインストールが必要です。詳しくはこちら</div>
                 <div className={styles.line}></div>
                 <div className={styles.tit1}>◆ アプリ内ブラウザからアクセスしている方
-                    ウォレットを接続</div>
+                    </div>
                 <div className={styles.button}>ウォレットを接続</div>
                 <div className={styles.line}></div>
                 <div className={styles.tit1}>◆ PCからアクセスしている方</div>
