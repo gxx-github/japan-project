@@ -40,7 +40,7 @@ export default function EmptyDom(props: Props) {
                     <div className={styles.button1} onClick={()=>{
                         setcurChooise(0)
                     }}>
-                        <img src={ judgeIsMobile() ? font_h5 : font} alt="" />
+                        <img src={ font} alt="" />
                     </div></>
             }
             {
