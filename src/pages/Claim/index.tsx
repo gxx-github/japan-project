@@ -111,9 +111,9 @@ const Claim = () => {
         if (!account) {
             history.push('/list')
         }
-        if (!NftInfo || Object.keys(NftInfo).length === 0 && !account && !window.ethereum) {
-            history.push('/toShow')
-        }
+        // if (!NftInfo || Object.keys(NftInfo).length === 0 && !account && !window.ethereum) {
+        //     history.push('/toShow')
+        // }
 
 
 
