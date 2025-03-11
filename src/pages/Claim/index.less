@@ -9,7 +9,8 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  .walletDom{
+
+  .walletDom {
     position: absolute;
     width: 137px;
     height: 30px;
@@ -22,22 +23,26 @@
     justify-content: space-between;
     padding: 0 20px;
     cursor: pointer;
-    .text{
+
+    .text {
       color: #fff;
       font-size: 12px;
     }
-    .close{
+
+    .close {
       width: 9px;
       height: 9px;
       background: url(../../assets/img/common/close.png);
       background-size: 100% 100%;
     }
-    &:hover{
-      .dis{
+
+    &:hover {
+      .dis {
         opacity: 1;
       }
     }
-    .dis{
+
+    .dis {
       opacity: 0;
       width: 160px;
       height: 30px;
@@ -49,11 +54,11 @@
       position: absolute;
       top: 33px;
       right: 0;
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     
-      span{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      span {
         border-bottom: 1px solid #fff;
         font-size: 12px;
         display: inline-block;
@@ -63,28 +68,30 @@
     }
 
   }
+
   .commonSection {
     width: 850px;
     height: 692px;
     background: rgba(255, 255, 255, 0.8);
   }
-  
+
   .innerTop {
     height: 155px;
     background: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
-    >img{
+
+    >img {
       width: 204px;
       height: 84px;
     }
   }
-  
+
   .content {
     width: 567px;
     margin: 0 auto;
-  
+
     .showText {
       color: #14002F;
       width: 567px;
@@ -95,9 +102,9 @@
       align-items: center;
       text-align: center;
       justify-content: center;
-  
+
     }
-  
+
     .showText1 {
       color: #14002F;
       width: 567px;
@@ -106,14 +113,14 @@
       border-bottom: 1px solid #14002F;
       text-align: center;
       flex-direction: column;
-  
+
       >span {
         font-size: 16px;
       }
-  
+
       margin-bottom: 50px;
     }
-  
+
     .showText0 {
       color: #C52929;
       width: 567px;
@@ -122,26 +129,30 @@
       border-bottom: 1px solid #14002F;
       text-align: center;
       flex-direction: column;
-  
+
       >span {
         font-size: 16px;
         color: #14002F;
       }
-  
+
       margin-bottom: 50px;
     }
-  
+
     .showItem {
       display: flex;
       margin-bottom: 30px;
-  
+
       .label {
         width: 128px;
         margin-right: 68px;
         font-size: 16px;
         color: #14002F;
       }
-  
+
+      .innerCon {
+        width: 371px;
+      }
+
       .inner {
         width: 371px;
         border-radius: 8px;
@@ -154,9 +165,19 @@
         font-size: 12px;
         border: none;
         outline: none;
-        
+
       }
-  
+
+      .inputIntro {
+        font-weight: 600;
+        padding-top: 10px;
+        color: #FF1414;
+        font-size: 10px;
+        .star{
+          padding-right: 6px;
+        }
+      }
+
       .inner1 {
         width: 371px;
         border-radius: 8px;
@@ -169,17 +190,20 @@
         font-size: 14px;
       }
     }
-    .buttons{
+
+    .buttons {
       display: flex;
       align-items: center;
       justify-content: space-between;
       height: 57px;
-      >div{
+
+      >div {
         flex: 1;
       }
-  
+
     }
-    .back{
+
+    .back {
       background: #646464;
       display: flex;
       align-items: center;
@@ -188,6 +212,7 @@
       height: 57px;
       cursor: pointer;
     }
+
     .claimButton {
       text-align: center;
       line-height: 57px;
@@ -197,7 +222,7 @@
       background: linear-gradient(to right, #BB5DF8, #4FEAFF);
       // margin: 50px auto 0;
     }
-  
+
     .claimButtonDis {
       text-align: center;
       line-height: 57px;
@@ -220,29 +245,31 @@
   // align-items: center;
   // justify-content: center;
   overflow: scroll;
-  padding:30px 30px 80px;
+  padding: 30px 30px 80px;
+
   .commonSection {
     background: rgba(255, 255, 255, 0.8);
     width: 100%;
   }
-  
+
   .innerTop {
     height: 155px;
     background: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
-    >img{
+
+    >img {
       width: 204px;
       height: 84px;
     }
   }
-  
+
   .content {
     width: 100%;
     margin: 0 auto;
     padding: 0 16px 40px;
-  
+
     .showText {
       color: #14002F;
       height: 50px;
@@ -253,9 +280,9 @@
       align-items: center;
       text-align: center;
       justify-content: center;
-  
+
     }
-  
+
     .showText1 {
       color: #14002F;
       height: fit-content;
@@ -264,15 +291,15 @@
       text-align: center;
       flex-direction: column;
       padding-bottom: 8px;
-  
+
       >span {
         font-size: 15px;
         margin-bottom: 8px;
       }
-  
+
       margin-bottom: 30px;
     }
-  
+
     .showText0 {
       color: #C52929;
       height: fit-content;
@@ -280,25 +307,37 @@
       border-bottom: 1px solid #14002F;
       text-align: center;
       flex-direction: column;
-  padding-bottom: 8px;
+      padding-bottom: 8px;
+
       >span {
         font-size: 15px;
         color: #14002F;
         margin-bottom: 8px;
       }
-  
+
       margin-bottom: 30px;
     }
-  
+
     .showItem {
-  
+
       .label {
         font-size: 12px;
         color: #14002F;
         margin-bottom: 8px;
         font-weight: 600;
       }
-  
+
+      .inputIntro {
+        width: 100%;
+        font-weight: 600;
+        padding-top: 10px;
+        color: #FF1414;
+        font-size: 8px;
+        .star{
+          padding-right: 6px;
+        }
+        padding-bottom: 20px;
+      }
       .inner {
         width: 100%;
         border-radius: 8px;
@@ -311,11 +350,11 @@
         font-size: 12px;
         border: none;
         outline: none;
-        margin-bottom: 20px;
+        // margin-bottom: 20px;
 
-        
+
       }
-  
+
       .inner1 {
         width: 100%;
         border-radius: 8px;
@@ -328,12 +367,14 @@
         font-size: 14px;
       }
     }
-  .buttons{
-    // display: flex;
-    // align-items: center;
-    // justify-content: space-between;
 
-  }
+    .buttons {
+      // display: flex;
+      // align-items: center;
+      // justify-content: space-between;
+
+    }
+
     .claimButton {
       width: 300px;
       height: 54px;
@@ -347,7 +388,7 @@
       border-radius: 8px;
 
     }
-  
+
     .claimButtonDis {
       width: 100%;
       height: 40px;
@@ -359,6 +400,7 @@
       background: #A19FA9;
       margin: 25px auto 0;
     }
+
     .claimButtonDisBack {
       width: 100%;
       height: 40px;
@@ -370,7 +412,8 @@
       background: #646464;
       margin: 10px auto 0;
     }
-    .claimButton{
+
+    .claimButton {
       width: 100%;
       height: 40px;
       text-align: center;
@@ -382,7 +425,8 @@
       margin: 25px auto 0;
     }
   }
-  .walletDom{
+
+  .walletDom {
     position: relative;
     width: 137px;
     height: 30px;
@@ -394,22 +438,26 @@
     padding: 0 20px;
     margin: 50px auto 0;
     cursor: pointer;
-    .text{
+
+    .text {
       color: #fff;
       font-size: 12px;
     }
-    .close{
+
+    .close {
       width: 9px;
       height: 9px;
       background: url(../../assets/img/common/close.png);
       background-size: 100% 100%;
     }
-    &:hover{
-      .dis{
+
+    &:hover {
+      .dis {
         opacity: 1;
       }
     }
-    .dis{
+
+    .dis {
       opacity: 0;
       width: 160px;
       height: 30px;
@@ -422,11 +470,11 @@
       top: 33px;
       left: 50%;
       transform: translateX(-50%);
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     
-      span{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      span {
         border-bottom: 1px solid #fff;
         font-size: 12px;
         display: inline-block;
@@ -437,5 +485,3 @@
 
   }
 }
-
-

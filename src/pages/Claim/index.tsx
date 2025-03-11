@@ -155,9 +155,16 @@ const Claim = () => {
                     <div className={styles.showItem}>
                         <div className={styles.label}>エアドロップ
                             受け取りアドレス</div>
-                        <input className={styles.inner} value={inputValue} onChange={handleInputChange} />
+                        <div className={styles.innerCon} >
+                            <input className={styles.inner} value={inputValue} onChange={handleInputChange} />
+                            <div className={styles.inputIntro} >
+                                <span className={styles.star}>※</span>
+                                <span>αU walletでは該当するチェーンに未対応のためエアドロップを受け取れません。受け取り可能な他のウォレットアドレスをご記入ください。</span>
+                            </div>
+                        </div>
 
                     </div>
+
                     <div className={styles.showItem}>
                         <div className={styles.label}>チェーン</div>
                         <div className={styles.inner1}>{NftInfo.chain || ''}</div>
@@ -174,7 +181,7 @@ const Claim = () => {
                         {
                             claimAmount !== 0 ? <>
                                 {
-                                    !isClaimed ? <div className={styles.claimButton} onClick={() => handleClaim()}>申し込み</div> : <div className={styles.claimButtonDis}  >受け取り済み</div>
+                                    !isClaimed ? <div className={styles.claimButton} onClick={() => handleClaim()}>申し込み</div> : <div className={styles.claimButtonDis}  >申し込み済み</div>
                                 }
 
                             </> : <div className={styles.claimButtonDis} >申し込み資格がありません</div>
