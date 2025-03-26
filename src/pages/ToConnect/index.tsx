@@ -16,10 +16,11 @@ const ToConnect = () => {
 
 
     const judgeIsWallect = () => {
-        if (typeof window.ethereum !== 'undefined') {
-            console.log('MetaMask is installed!');
-            openConnectModal && openConnectModal()
-        } 
+        // if (typeof window.ethereum !== 'undefined') {
+        //     console.log('MetaMask is installed!');
+        //     openConnectModal && openConnectModal()
+        // } 
+        openConnectModal && openConnectModal()
         // else {
         //     console.log('MetaMask is not installed.');
         //     history.push('/toShow')
